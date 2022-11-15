@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 
-project(gomoku C)
+project(pbrain-gomoku-ai C)
 
 set(SRC
     main.c
@@ -8,7 +8,7 @@ set(SRC
 
 add_executable(${PROJECT_NAME} ${SRC})
 
-set_target_properties(${TARGET}
+set_target_properties(${PROJECT_NAME}
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/
 )
