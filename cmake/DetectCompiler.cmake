@@ -5,7 +5,7 @@
 # "gcc" (linux, mingw not supported yet)
 
 
-if (CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_COMPILER_IS_GNUCC)
   set(COMPILER_TYPE "gcc")
   ## Add the flags for the compilation ##
   add_compile_options(
