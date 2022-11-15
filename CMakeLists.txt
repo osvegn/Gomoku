@@ -4,6 +4,7 @@ project(pbrain-gomoku-ai C)
 
 set(SRC
     main.c
+    sources/my_printf.c
 )
 
 add_executable(${PROJECT_NAME} ${SRC})
