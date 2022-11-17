@@ -54,3 +54,4 @@ dkms.conf
 # Build folder
 build
 pbrain-gomoku-ai
+.vscode
