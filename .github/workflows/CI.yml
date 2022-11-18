@@ -24,6 +24,7 @@ jobs:
           find "pbrain-gomoku-ai"
 
   mirroring:
+    needs: [ "build_linux" ]
     if: github.event_name == 'push'
     runs-on: ubuntu-22.04
     steps:
