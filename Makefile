@@ -22,9 +22,14 @@ clean:
 
 fclean: clean
 	${RM} ${NAME}
+	${RM} ${NAME}_tests
 
 re: fclean all
 
 debug: fclean
 	mkdir -p build
 	cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug && cmake --build .
+
+unit_test: fclean
+	mkdir -p build
+	cd build && cmake cmake .. -DTESTING=On && cmake --build .
