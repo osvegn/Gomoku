@@ -8,6 +8,8 @@
 #ifndef GOMOKU_H_
 #define GOMOKU_H_
 
+#include <stdbool.h>
+
 /**
  * @brief It prints the string passed to it,
  * and then flushes the output buffer.
@@ -44,5 +46,13 @@ void answer_start_protocol(bool success, const char *message);
  * @return 0 on success, -1 otherwise.
  */
 int get_start_protocol(const char *message, unsigned int *size);
+
+/**
+ * @brief It prints the coordinates of the tile you want to play.
+ *
+ * @param x The x coordinate of the tile you want to place your piece on.
+ * @param y the y coordinate of the tile you want to place your piece on.
+ */
+void answer_turn_protocol(unsigned int x, unsigned int y);
 
 #endif /* !GOMOKU_H_ */
