@@ -23,6 +23,20 @@ jobs:
         run: |
           find "pbrain-gomoku-ai"
 
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: create exectuable on windows
+        run: |
+          mkdir -p build
+          cd build && cmake .. && cmake --build .
+      - name: test exectuable exists with the good name
+        run: |
+          find "pbrain-gomoku-ai.exe"
+
   mirroring:
     needs: [ "build_linux" ]
     if: github.event_name == 'push'
