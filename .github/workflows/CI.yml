@@ -33,9 +33,6 @@ jobs:
         run: |
           mkdir -p build
           cd build && cmake .. && cmake --build .
-      - name: test exectuable exists with the good name
-        run: |
-          find "pbrain-gomoku-ai.exe"
 
   mirroring:
     needs: [ "build_linux" ]
