@@ -11,7 +11,7 @@
 /**
  * @brief It prints the string passed to it,
  * and then flushes the output buffer.
- * 
+ *
  * @param str The format string.
  */
 void my_printf(const char *str, ...);
@@ -23,5 +23,14 @@ void my_printf(const char *str, ...);
  * file.
  */
 void readstdin(char **content);
+
+/**
+ * @brief It prints a message to the standard output.
+ *
+ * @param success a boolean that indicates whether the protocol was
+ * successfully started or not.
+ * @param message The message to send to the client.
+ */
+void answer_start_protocol(bool success, const char *message);
 
 #endif /* !GOMOKU_H_ */
