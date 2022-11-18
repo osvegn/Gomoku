@@ -7,7 +7,35 @@ on:
     branches: [ main ]
 
 jobs:
+  build_linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: test Makefile rules
+        run: |
+          make
+          make clean
+          make fclean
+          make re
+      - name: test executable exists with the good name
+        run: |
+          find "pbrain-gomoku-ai"
+
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: create exectuable on windows
+        run: |
+          mkdir -p build
+          cd build && cmake .. && cmake --build .
+
   mirroring:
+    needs: [ "build_linux" ]
     if: github.event_name == 'push'
     runs-on: ubuntu-22.04
     steps:
