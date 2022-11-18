@@ -33,3 +33,6 @@ debug: fclean
 unit_test: fclean
 	mkdir -p build
 	cd build && cmake cmake .. -DTESTING=On && cmake --build .
+
+run_tests: unit_test
+	./${NAME}_tests
