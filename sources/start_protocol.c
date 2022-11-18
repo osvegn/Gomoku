@@ -31,11 +31,13 @@ void answer_start_protocol(bool success, const char *message)
 
 int get_start_protocol(const char *message, unsigned int *size)
 {
+    const char protocol_name[] = "START ";
+    const unsigned int protocol_len = 6;
     int value = 0;
 
-    if (!message || !size || strncmp(message, "START ", 6))
+    if (!message || !size || strncmp(message, protocol_name, protocol_len))
         return -1;
-    value = atoi(message + 6);
+    value = atoi(message + protocol_len);
     if (value <= 0)
         return -1;
     (*size) = value;
