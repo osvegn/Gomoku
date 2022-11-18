@@ -47,12 +47,4 @@ void answer_start_protocol(bool success, const char *message);
  */
 int get_start_protocol(const char *message, unsigned int *size);
 
-/**
- * @brief It prints the coordinates of the tile you want to play.
- *
- * @param x The x coordinate of the tile you want to place your piece on.
- * @param y the y coordinate of the tile you want to place your piece on.
- */
-void answer_turn_protocol(unsigned int x, unsigned int y);
-
 #endif /* !GOMOKU_H_ */
