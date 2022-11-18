@@ -33,4 +33,16 @@ void readstdin(char **content);
  */
 void answer_start_protocol(bool success, const char *message);
 
+/**
+ * @brief It takes a string and a pointer to an unsigned int, and if the
+ * string is a valid start protocol message, it sets the unsigned int to the
+ * size of the file and returns 0. Otherwise, it returns -1.
+ *
+ * @param message The message to parse.
+ * @param size The size of the map to be set.
+ *
+ * @return 0 on success, -1 otherwise.
+ */
+int get_start_protocol(const char *message, unsigned int *size);
+
 #endif /* !GOMOKU_H_ */
