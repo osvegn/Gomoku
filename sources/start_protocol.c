@@ -14,7 +14,7 @@ static const char START_FAILURE[] = "ERROR";
 
 void answer_start_protocol(bool success, const char *message)
 {
-    char *code = NULL;
+    const char *code = NULL;
 
     if (success) {
         code = START_SUCCESS;
