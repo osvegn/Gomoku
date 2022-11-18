@@ -19,6 +19,9 @@ jobs:
           make clean
           make fclean
           make re
+      - name: test executable exists with the good name
+        run: |
+          find "pbrain-gomoku-ai"
 
   mirroring:
     if: github.event_name == 'push'
