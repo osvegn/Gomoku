@@ -21,5 +21,9 @@ void answer_start_protocol(bool success, const char *message)
     } else {
         code = START_FAILURE;
     }
-    my_printf("%s - %s\n", code, message);
+    if (message) {
+        my_printf("%s - %s\n", code, message);
+    } else {
+        my_printf("%s\n", code);
+    }
 }
