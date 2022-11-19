@@ -37,8 +37,9 @@ int readfile(char **lineptr, size_t *n, FILE *stream)
         return -1;
     c = fgetc(stream);
     while (c != EOF) {
-        if (size == 0 || size - 1 <= i) {
-            allocate_memory(&buffer, &size);
+        if ((size == 0 || size - 1 <= i) &&
+            allocate_memory(&buffer, &size) < 0) {
+            return -1;
         }
         buffer[i] = c;
         i++;

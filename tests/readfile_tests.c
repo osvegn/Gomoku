@@ -59,5 +59,5 @@ Test(readfile, third_argument_is_null_readfile)
     rvalue = readfile(&buffer, &size, NULL);
     cr_assert_eq(rvalue, -1);
     cr_assert_eq(size, 0);
-    cr_assert_str_eq(buffer, 0);
+    cr_assert_eq(buffer, 0);
 }
