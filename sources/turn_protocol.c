@@ -47,7 +47,7 @@ int get_turn_protocol(const char *message, unsigned int *x, unsigned int *y)
         return -1;
     while (message[offset] && message[offset] != ',')
         offset++;
-    if (get_value_from_message(message + offset, y))
+    if (get_value_from_message(message + offset + 1, y))
         return -1;
     return 0;
 }
