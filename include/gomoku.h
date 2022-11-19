@@ -9,6 +9,7 @@
 #define GOMOKU_H_
 
 #include <stdbool.h>
+#include <stdio.h>
 
 /**
  * @brief It prints the string passed to it,

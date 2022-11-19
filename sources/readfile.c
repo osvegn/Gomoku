@@ -5,8 +5,8 @@
 ** readstdin
 */
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * @brief It allocates new space to the buffer.
