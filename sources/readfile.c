@@ -21,7 +21,7 @@ int readfile(char **lineptr, size_t *n, FILE *stream)
     char *buffer = NULL;
     size_t size = 0;
     int c = 0;
-    int i = 0;
+    size_t i = 0;
 
     if (!lineptr || !stream || !n)
         return -1;
