@@ -48,15 +48,17 @@ static game_rules_t RULES[] =
     }
 };
 
-game_rules_t **get_rules(void)
+game_rules_t *get_rules(void)
 {
-    return &RULES;
+    return RULES;
 }
 
 game_rules_t *get_rule(const char *key)
 {
     int i = 0;
 
+    if (!key)
+        return NULL;
     while (RULES[i].key) {
         if (!strcmp(RULES[i].key, key))
             return &RULES[i];
@@ -65,15 +67,18 @@ game_rules_t *get_rule(const char *key)
     return NULL;
 }
 
-int set_rule(const char *key, const void *value)
+int set_rule(const char *key, const size_t value)
 {
     int i = 0;
 
+    if (!key)
+        return -1;
     while (RULES[i].key) {
         if (!strcmp(RULES[i].key, key)) {
             RULES[i].value = value;
             return 0;
         }
+        i++;
     }
     return -1;
 }

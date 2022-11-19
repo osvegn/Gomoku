@@ -12,7 +12,11 @@
 
 typedef struct game_rules_s {
     const char *key;
-    void *value;
+    size_t value;
 } game_rules_t;
+
+game_rules_t *get_rules(void);
+game_rules_t *get_rule(const char *key);
+int set_rule(const char *key, const size_t value);
 
 #endif /* !GAME_RULES_H_ */
