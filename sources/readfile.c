@@ -7,7 +7,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-int allocate_memory(char **buffer, size_t *size)
+
+static int allocate_memory(char **buffer, size_t *size)
 {
     (*size) += 128;
     (*buffer) = realloc((*buffer), *size);
