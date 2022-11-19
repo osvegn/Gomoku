@@ -8,6 +8,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief It allocates new space to the buffer.
+ *
+ * @param buffer a pointer to a pointer to a char. This is the address of the
+ * buffer that holds the string and need to get more space.
+ * @param size The size of the buffer.
+ *
+ * @return 0 on success, -1 otherwise.
+ */
 static int allocate_memory(char **buffer, size_t *size)
 {
     (*size) += 128;

@@ -19,12 +19,16 @@
 void my_printf(const char *str, ...);
 
 /**
- * @brief It reads from stdin until EOF, and returns the content as a string.
+ * @brief It reads a file and returns a pointer to a buffer containing
+ * the file's contents.
  *
- * @param content a pointer to a pointer to a char. This is the content of the
- * file.
+ * @param lineptr This is a pointer to a pointer to a character.
+ * @param n The size of the buffer.
+ * @param stream The file stream to read from.
+ *
+ * @return The number of characters read.
  */
-void readstdin(char **content);
+int readfile(char **lineptr, size_t *n, FILE *stream);
 
 /**
  * @brief It prints a message to the standard output.
