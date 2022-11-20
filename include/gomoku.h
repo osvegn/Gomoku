@@ -49,10 +49,10 @@ void answer_start_protocol(bool success, const char *message);
 int get_start_protocol(const char *message, unsigned int *size);
 
 /**
- * @brief It takes a string, a struct coordinates and an unsigned int. If the
- * string is a valid begin protocol message and the given coordinates aren't
- * superior to the size, it prints the coordinates on the standard output and
- * returns 0. Otherwise, it returns -1.
+ * @brief It takes a string, a pointer to a struct coordinates and an unsigned
+ * int. If the string is a valid begin protocol message and the given
+ * coordinates aren't superior to the size, it prints the coordinates on the
+ * standard output and returns 0. Otherwise, it returns -1.
  *
  * @param message The message to check.
  * @param coordinates The coordinates of the next move.
@@ -60,7 +60,7 @@ int get_start_protocol(const char *message, unsigned int *size);
  *
  * @return 0 on success, -1 otherwise.
  */
-int handle_start_protocol(const char *message, const coords_t coordinates,
+int handle_begin_protocol(const char *message, const coords_t *coordinates,
 const uint32_t size);
 
 #endif /* !GOMOKU_H_ */
