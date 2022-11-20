@@ -36,8 +36,10 @@ int create_board(unsigned int x, unsigned int y)
         return -1;
     while (i < y) {
         board.board[i] = malloc(sizeof(int) * (x));
-        if (!board.board[i]);
+        if (!board.board[i])
             return -1;
+        for (unsigned int j = 0; j < x; j++)
+            board.board[i][j] = 0;
         i++;
     }
     board.size_x = x;
