@@ -5,13 +5,10 @@
 ** board
 */
 
+#include <stdlib.h>
 #include "board.h"
 
 static board_t board = {NULL, 0, 0};
-
-// static unsigned int **BOARD = NULL;
-// static unsigned int X = 0;
-// static unsigned int Y = 0;
 
 void destroy_board(void)
 {
@@ -20,7 +17,7 @@ void destroy_board(void)
     if (!board.board) {
         return;
     }
-    while (i < board.Y) {
+    while (i < board.size_y) {
         if (board.board[i]) {
             free(board.board[i]);
         }
@@ -43,14 +40,14 @@ int create_board(unsigned int x, unsigned int y)
             return -1;
         i++;
     }
-    board.X = x;
-    board.Y = y;
+    board.size_x = x;
+    board.size_y = y;
     return 0;
 }
 
 int add_piece_to_board(unsigned int x, unsigned int y, unsigned int player)
 {
-    if (!board.board || x >= board.X || y >= board.Y || player == 0)
+    if (!board.board || x >= board.size_x || y >= board.size_y || player == 0)
         return -1;
     board.board[y][x] = player;
     return 0;
@@ -58,7 +55,7 @@ int add_piece_to_board(unsigned int x, unsigned int y, unsigned int player)
 
 int remove_piece_to_board(unsigned int x, unsigned int y)
 {
-    if (!board.board || x >= board.X || y >= board.Y)
+    if (!board.board || x >= board.size_x || y >= board.size_y)
         return -1;
     board.board[y][x] = 0;
     return 0;
