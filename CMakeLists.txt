@@ -14,6 +14,7 @@ set(SRC
     ${SRC_ROOT}/readfile.c
     ${SRC_ROOT}/start_protocol.c
     ${SRC_ROOT}/turn_protocol.c
+    ${SRC_ROOT}/board.c
     CACHE INTERNAL "sources"
 )
 
