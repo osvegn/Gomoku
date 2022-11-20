@@ -13,6 +13,7 @@ set(SRC
     ${SRC_ROOT}/my_printf.c
     ${SRC_ROOT}/readfile.c
     ${SRC_ROOT}/start_protocol.c
+    ${SRC_ROOT}/turn_protocol.c
     CACHE INTERNAL "sources"
 )
 

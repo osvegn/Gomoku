@@ -32,6 +32,27 @@ void my_printf(const char *str, ...);
 int readfile(char **lineptr, size_t *n, FILE *stream);
 
 /**
+ * @brief It prints the coordinates of the tile you want to play.
+ *
+ * @param x The x coordinate of the tile you want to place your piece on.
+ * @param y the y coordinate of the tile you want to place your piece on.
+ */
+void answer_turn_protocol(unsigned int x, unsigned int y);
+
+/**
+ * @brief It takes a string and two unsigned integers as arguments, and if
+ * the string starts with "TURN ", it will parse the string and store the
+ * two numbers in the unsigned integers.
+ *
+ * @param message The message to parse.
+ * @param x the x coordinate of the player's turn
+ * @param y The y coordinate of the player's turn
+ *
+ * @return 0 on success, -1 otherwise.
+ */
+int get_turn_protocol(const char *message, unsigned int *x, unsigned int *y);
+
+/**
  * @brief It prints a message to the standard output.
  *
  * @param success a boolean that indicates whether the protocol was
