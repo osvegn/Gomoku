@@ -2,9 +2,8 @@
 name: Basic feature
 about: Suggest an idea for this project
 title: ''
-labels: ''
+labels: 'Feature'
 assignees: ''
-project: 'osvegn/Gomoku'
 
 ---
 
