@@ -18,13 +18,9 @@ typedef struct board_s {
      */
     unsigned int **board;
     /**
-     * @brief The size x of the board.
+     * @brief The size of the board.
      */
-    unsigned int size_x;
-    /**
-     * @brief The size y of the board.
-     */
-    unsigned int size_y;
+    unsigned int size;
 } board_t;
 
 /**
@@ -35,12 +31,11 @@ void destroy_board(void);
 /**
  * @brief It creates a board of size x by y.
  *
- * @param x The width of the board.
- * @param y The number of rows in the board.
+ * @param size The size of the board.
  *
  * @return 0 on success, -1 otherwise.
  */
-int create_board(unsigned int x, unsigned int y);
+int create_board(unsigned int size);
 
 /**
  * @brief Adds a piece to the board at the specified location for the
