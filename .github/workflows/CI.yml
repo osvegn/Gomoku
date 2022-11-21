@@ -5,6 +5,16 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version string"
+        required: true
+        default: "0.0.0"
+      body:
+        description: "Release body"
+        required: true
+        default: "Release body"
 
 jobs:
   build_linux:
@@ -22,6 +32,21 @@ jobs:
       - name: test executable exists with the good name
         run: |
           find "pbrain-gomoku-ai"
+      - name: Upload release Artifact
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/download-artifact@v3
+        with:
+          name: Linux
+          path: ${{ github.workspace }}/pbrain-gomoku-ai
+      - name: Create release version
+        if: github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          body: ${{ github.event.inputs.body }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ${{ github.workspace }}/Linux/pbrain-gomoku-ai
 
   build_windows:
     runs-on: windows-latest
@@ -33,6 +58,20 @@ jobs:
         run: |
           mkdir -p build
           cd build && cmake .. && cmake --build .
+      - name: Upload release Artifact
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v3
+        with:
+          name: Windows
+          path: ${{ github.workflow }}/pbrain-gomoku-ai.exe
+      - name: Create release version
+        if: github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          body: ${{ github.event.inputs.body }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: ${{ github.workspace }}/Windows/pbrain-gomoku-ai.exe
 
   coverage:
     needs: [ "build_linux" ]
