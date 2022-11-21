@@ -17,6 +17,7 @@ set(SRC
     ${SRC_ROOT}/turn_protocol.c
     ${SRC_ROOT}/board.c
     ${SRC_ROOT}/print_board.c
+    ${SRC_ROOT}/find_victory.c
     CACHE INTERNAL "sources"
 )
 
