@@ -34,6 +34,32 @@ jobs:
           mkdir -p build
           cd build && cmake .. && cmake --build .
 
+  coverage:
+    needs: [ build_linux ]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Install criterion
+        run: |
+          sudo apt-get install gcovr
+          sudo apt-get install meson
+          git clone --recursive https://github.com/Snaipe/Criterion Criterion
+          cd Criterion
+          meson build
+          ninja -C build
+          sudo ninja -C build install
+          sudo ldconfig
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build tests
+        run: make run_tests
+      - name: Build report
+        run: gcovr --xml report.xml --exclude tests
+      - name: Codecov
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          token: ${{ secrets:CODECOV_ACCESS_TOKEN }}
+          fail_ci_if_error: false
+
   mirroring:
     needs: [ "build_linux" ]
     if: github.event_name == 'push'
