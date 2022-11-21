@@ -36,4 +36,3 @@ unit_test: fclean
 
 run_tests: unit_test
 	cd build && ctest --output-on-failure
-#	./${NAME}_tests
