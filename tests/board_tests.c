@@ -45,7 +45,7 @@ Test(add_piece_to_board, add_piece_at_2_5_on_20_20_board)
     rvalue = add_piece_to_board(2, 5, 1);
     cr_assert_eq(rvalue, 0);
     board = get_board();
-    cr_assert_eq(board->board[5][2], 1);
+    cr_assert_eq(board->board[5 * board->size + 2], 1);
     destroy_board();
 }
 
@@ -58,7 +58,7 @@ Test(add_piece_to_board, add_piece_at_10_19_on_20_20_board)
     rvalue = add_piece_to_board(10, 19, 1);
     cr_assert_eq(rvalue, 0);
     board = get_board();
-    cr_assert_eq(board->board[19][10], 1);
+    cr_assert_eq(board->board[19 * board->size + 10], 1);
     destroy_board();
 }
 
@@ -111,7 +111,7 @@ Test(remove_piece_to_board, remove_piece_on_board_at_5_5)
     rvalue = remove_piece_to_board(5, 5);
     cr_assert_eq(rvalue, 0);
     board = get_board();
-    cr_assert_eq(board->board[5][5], 0);
+    cr_assert_eq(board->board[5 * board->size + 5], 0);
     destroy_board();
 }
 

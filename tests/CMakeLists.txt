@@ -12,11 +12,8 @@ set(SRC_TESTS
 
 add_executable(${PROJECT_NAME}_tests ${SRC} ${SRC_TESTS})
 
-set_target_properties(${PROJECT_NAME}_tests
-    PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/
-)
-
 target_include_directories(${PROJECT_NAME}_tests
     PUBLIC ${INC_ROOT}
 )
+
+add_test(${PROJECT_NAME}_tests ${PROJECT_NAME}_tests)

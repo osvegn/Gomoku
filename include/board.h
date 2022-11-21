@@ -16,7 +16,7 @@ typedef struct board_s {
     /**
      * @brief The board with piece players have played.
      */
-    unsigned int **board;
+    unsigned int *board;
     /**
      * @brief The size of the board.
      */
