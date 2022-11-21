@@ -33,6 +33,8 @@ int add_piece_to_board(unsigned int x, unsigned int y, unsigned int player)
 {
     if (!board.board || x >= board.size || y >= board.size || player == 0)
         return -1;
+    if (board.board[y * board.size + x])
+        return -1;
     board.board[y * board.size + x] = player;
     return 0;
 }
