@@ -9,7 +9,6 @@ on:
 jobs:
   build_linux:
     runs-on: ubuntu-22.04
-    environment: Developpment
     steps:
       - uses: actions/checkout@v3
         with:
@@ -26,7 +25,6 @@ jobs:
 
   build_windows:
     runs-on: windows-latest
-    environment: Developpment
     steps:
       - uses: actions/checkout@v3
         with:
@@ -39,7 +37,6 @@ jobs:
   coverage:
     needs: [ "build_linux" ]
     runs-on: ubuntu-22.04
-    environment: Developpment
     steps:
       - name: Install criterion
         run: |
@@ -67,7 +64,6 @@ jobs:
     needs: [ "build_linux" ]
     if: github.event_name == 'push'
     runs-on: ubuntu-22.04
-    environment: Developpment
     steps:
       - uses: actions/checkout@v3
         with:
