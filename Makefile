@@ -35,4 +35,4 @@ unit_test: fclean
 	cd build && cmake cmake .. -DTESTING=On && cmake --build .
 
 run_tests: unit_test
-	./${NAME}_tests
+	cd build && ctest --output-on-failure
