@@ -9,6 +9,7 @@ on:
 jobs:
   build_linux:
     runs-on: ubuntu-22.04
+    environment: Developpment
     steps:
       - uses: actions/checkout@v3
         with:
