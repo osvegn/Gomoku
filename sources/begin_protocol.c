@@ -8,15 +8,13 @@
 #include <string.h>
 #include "gomoku.h"
 
-int handle_begin_protocol(const char *message, const coords_t *coordinates,
-const uint32_t size)
+int handle_begin_protocol(const char *message)
 {
-    const char expected[] = "BEGIN";
+    coords_t coordinates = {0, 0};
 
-    if (!message || strcmp(message, expected) != 0)
+    if (!message)
         return -1;
-    if (coordinates->x > size || coordinates->y > size)
-        return -1;
-    my_printf("%u, %u\r\n", coordinates->x, coordinates->y);
+    // call the ia to know wich move to do
+    my_printf("%u, %u\r\n", coordinates.x, coordinates.y);
     return 0;
 }

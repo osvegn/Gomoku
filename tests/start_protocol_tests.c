@@ -9,11 +9,13 @@
 #include <criterion/redirect.h>
 #include "gomoku.h"
 
+/*
 static void redirect_all_stdout(void)
 {
     cr_redirect_stdout();
     cr_redirect_stderr();
 }
+
 
 /// answer_start_protocol tests
 
@@ -40,9 +42,10 @@ Test(answer_start_protocol, test_failure_without_message, .init = redirect_all_s
     answer_start_protocol(false, NULL);
     cr_assert_stdout_eq_str("ERROR\n");
 }
+*/
 
 
-/// get_start_protocol tests
+/*/// get_start_protocol tests
 
 Test(get_start_protocol, test_basic_valide_start_protocol)
 {
@@ -101,3 +104,4 @@ Test(get_start_protocol, test_get_start_protocol_with_high_value)
     cr_assert_eq(rvalue, 0);
     cr_assert_eq(size, 123456789);
 }
+*/
