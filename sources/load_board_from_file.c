@@ -31,4 +31,5 @@ int load_board_from_file(const char *file)
             coords.y++;
         }
     }
+    return 0;
 }
