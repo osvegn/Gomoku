@@ -72,11 +72,12 @@ int loop_in_protocols(void)
     int rvalue = 0;
     int end = 0;
 
-    rvalue = readfile(&buffer, &size, stdin);
     if (rvalue == -1)
         return -1;
-    while (!end)
+    while (!end) {
+        rvalue = readfile(&buffer, &size, stdin);
         end = search_protocol(buffer);
-    free(buffer);
+        free(buffer);
+    }
     return 0;
 }
