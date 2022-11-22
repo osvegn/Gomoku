@@ -15,7 +15,7 @@ ${NAME}: all
 
 all:
 	mkdir -p build
-	cd build && cmake .. && cmake --build .
+	cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build .
 
 clean:
 	${RM} ${BUILD}
@@ -32,7 +32,7 @@ debug: fclean
 
 unit_test: fclean
 	mkdir -p build
-	cd build && cmake cmake .. -DTESTING=On && cmake --build .
+	cd build && cmake .. -DCMAKE_BUILD_TYPE=Release -DTESTING=On && cmake --build .
 
 run_tests: unit_test
 	cd build && ctest --output-on-failure

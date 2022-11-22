@@ -59,7 +59,7 @@ jobs:
       - name: create exectuable on windows
         run: |
           mkdir -p build
-          cd build && cmake .. && cmake --build .
+          cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build .
       - name: Upload release Artifact
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v3
