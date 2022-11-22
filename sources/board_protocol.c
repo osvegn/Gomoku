@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2022
-** gomoku
+** Gomoku
 ** File description:
-** turn_protocol
+** board_protocol
 */
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include "gomoku.h"
 #include "board.h"
 
@@ -41,6 +41,33 @@ static int get_value_from_message(const char *message, uint32_t *coord)
     return 0;
 }
 
+static int add_data(const char *message, uint32_t *offset)
+{
+    coords_t coordinates = {0, 0};
+    uint32_t field = 0;
+
+    if (message[*offset] && strncmp(&(message[*offset]), "DONE", 4) == 0)
+        return 1;
+    if (get_value_from_message(&(message[*offset]), &(coordinates.x)) < 0)
+        return -1;
+    while (message[*offset] && message[*offset] != ',')
+        (*offset)++;
+    if (get_value_from_message(&(message[*offset + 1]), &(coordinates.y)))
+        return -1;
+    while (message[*offset + 1] && message[*offset + 1] != ',')
+        (*offset)++;
+    if (get_value_from_message(&(message[*offset + 2]), &field))
+        return -1;
+    if (add_piece_to_board(coordinates.x, coordinates.y, field) == -1)
+        return -1;
+    while (message[*offset] && message[*offset] != '\n'
+        && message[*offset] != '\r')
+        (*offset)++;
+    if (message[*offset] == '\n' || message[*offset] == '\r')
+        (*offset)++;
+    return 0;
+}
+
 static void get_dumb_ia(coords_t *coordinates)
 {
     const board_t *board = get_board();
@@ -54,27 +81,23 @@ static void get_dumb_ia(coords_t *coordinates)
     }
 }
 
-int get_turn_protocol(const char *message)
+int handle_board_protocol(const char *message)
 {
-    const int protocol_len = 5;
-    unsigned int offset = 0;
+    uint32_t offset = 6;
     coords_t coordinates = {0, 0};
+    bool done = false;
 
     if (!message)
         return -1;
-    offset += protocol_len;
-    if (get_value_from_message(message + offset, &(coordinates.x)) < 0)
-        return -1;
-    while (message[offset] && message[offset] != ',')
-        offset++;
-    if (get_value_from_message(message + offset + 1, &(coordinates.y)))
-        return -1;
-    if (add_piece_to_board(coordinates.x, coordinates.y, 2) == -1)
-        return -1;
-    // call the ia to put a piece
+    while (!done) {
+        done = add_data(message, &offset);
+        if (done == -1)
+            return -1;
+    }
     get_dumb_ia(&coordinates);
     if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1)
         return -1;
+    // call the ia to put a piece
     answer_turn_protocol(coordinates.x, coordinates.y);
     return 0;
 }

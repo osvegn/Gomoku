@@ -5,7 +5,10 @@
 ** main
 */
 
+#include "gomoku.h"
+
 int main(void)
 {
+    loop_in_protocols();
     return 0;
 }

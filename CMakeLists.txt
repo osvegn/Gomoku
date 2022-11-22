@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.17)
 
 project(pbrain-gomoku-ai C)
 
+add_compile_options(-g3)
+
 set(INC_ROOT ${PROJECT_SOURCE_DIR}/include)
 set(SRC_ROOT ${PROJECT_SOURCE_DIR}/sources)
 
@@ -15,7 +17,11 @@ set(SRC
     ${SRC_ROOT}/start_protocol.c
     ${SRC_ROOT}/begin_protocol.c
     ${SRC_ROOT}/turn_protocol.c
+    ${SRC_ROOT}/board_protocol.c
+    ${SRC_ROOT}/end_protocol.c
+    ${SRC_ROOT}/info_protocol.c
     ${SRC_ROOT}/board.c
+    ${SRC_ROOT}/protocols_management.c
     CACHE INTERNAL "sources"
 )
 

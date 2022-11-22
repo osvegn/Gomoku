@@ -55,4 +55,13 @@ int get_turn_protocol(const char *message);
 int get_start_protocol(const char *message);
 
 int handle_begin_protocol(const char *message);
+
+int handle_board_protocol(const char *message);
+
+int loop_in_protocols(void);
+
+int handle_end_protocol(const char *message);
+
+int handle_info_protocol(const char *message);
+
 #endif /* !GOMOKU_H_ */
