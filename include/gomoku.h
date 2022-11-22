@@ -28,7 +28,7 @@ void my_printf(const char *str, ...);
  * @param n The size of the buffer.
  * @param stream The file stream to read from.
  *
- * @return The number of characters read.
+ * @return The number of characters read, or -1 on failure.
  */
 int readfile(char **lineptr, size_t *n, FILE *stream);
 

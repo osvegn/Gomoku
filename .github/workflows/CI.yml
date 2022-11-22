@@ -19,6 +19,7 @@ on:
 jobs:
   build_linux:
     runs-on: ubuntu-22.04
+    environment: Development
     steps:
       - uses: actions/checkout@v3
         with:
@@ -50,6 +51,7 @@ jobs:
 
   build_windows:
     runs-on: windows-latest
+    environment: Development
     steps:
       - uses: actions/checkout@v3
         with:
@@ -57,13 +59,13 @@ jobs:
       - name: create exectuable on windows
         run: |
           mkdir -p build
-          cd build && cmake .. && cmake --build .
+          cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build .
       - name: Upload release Artifact
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v3
         with:
           name: Windows
-          path: ${{ github.workspace }}/pbrain-gomoku-ai.exe
+          path: ${{ github.workspace }}/Debug/pbrain-gomoku-ai.exe
       - name: Create release version
         if: github.event_name == 'workflow_dispatch'
         uses: softprops/action-gh-release@v1
@@ -94,7 +96,7 @@ jobs:
       - name: Build report
         run: gcovr --xml report.xml --exclude tests
       - name: Codecov
-        uses: codecov/codecov-action@v2.1.0
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_ACCESS_TOKEN }}
           fail_ci_if_error: false

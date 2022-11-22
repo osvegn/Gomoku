@@ -23,6 +23,9 @@ set(SRC
     ${SRC_ROOT}/about_protocol.c
     ${SRC_ROOT}/board.c
     ${SRC_ROOT}/protocols_management.c
+    ${SRC_ROOT}/print_board.c
+    ${SRC_ROOT}/find_victory.c
+    ${SRC_ROOT}/load_board_from_file.c
     CACHE INTERNAL "sources"
 )
 
