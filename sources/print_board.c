@@ -18,7 +18,7 @@ void print_board(void)
     my_printf("-\n");
     for (unsigned int i = 0; i < board->size; i++) {
         for (unsigned int j = 0; j < board->size; j++) {
-            my_printf("| %i ", board->board[i][j]);
+            my_printf("| %i ", board->board[i * board->size + j]);
         }
         my_printf("|\n");
         for (unsigned int j = 0; j < board->size; j++) {
