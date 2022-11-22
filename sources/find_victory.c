@@ -63,26 +63,31 @@ unsigned int player)
     return 0;
 }
 
-int is_victory_available(void)
+int is_victory_available(scoords_t *coords)
 {
     const board_t *board = get_board();
     int rvalue = 0;
-    scoords_t coords = {0, 0};
     int size = (int)board->size;
+    scoords_t position = {0, 0};
+    int enemy_direction = 0;
 
-    while (coords.y * board->size + coords.x < board->size * board->size) {
-        if (board->board[coords.y * size + coords.x]) {
-            rvalue = find_directions(board, coords, 1,
-            board->board[coords.y * size + coords.x]);
+    while (coords->y * board->size + coords->x < board->size * board->size) {
+        if (board->board[coords->y * size + coords->x]) {
+            rvalue = find_directions(board, *coords, 1,
+            board->board[coords->y * size + coords->x]);
         }
-        if (rvalue) {
+        if (rvalue && board->board[coords->y * size + coords->x] == 1)
             return rvalue;
+        else if (rvalue && board->board[coords->y * size + coords->x] == 2) {
+            position = (scoords_t){coords->x, coords->y};
+            enemy_direction = rvalue;
         }
-        coords.x++;
-        if (coords.x >= size && coords.y + 1 < size) {
-            coords.x = 0;
-            coords.y++;
+        coords->x++;
+        if (coords->x >= size && coords->y + 1 < size) {
+            coords->x = 0;
+            coords->y++;
         }
     }
-    return 0;
+    (*coords) = position;
+    return enemy_direction;
 }
