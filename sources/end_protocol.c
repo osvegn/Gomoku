@@ -10,14 +10,6 @@
 
 int handle_end_protocol(const char *message)
 {
-    const board_t *board = get_board();
-
-    for (int i = 0; i < board->size * board->size; i++) {
-        my_printf("%d", board->board[i]);
-        if ((i + 1) % board->size == 0)
-            my_printf("\n");
-    }
     destroy_board();
-    my_printf("end protocol\n");
     return 1;
 }

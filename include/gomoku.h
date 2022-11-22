@@ -64,4 +64,6 @@ int handle_end_protocol(const char *message);
 
 int handle_info_protocol(const char *message);
 
+int answer_about_protocol(const char *message);
+
 #endif /* !GOMOKU_H_ */

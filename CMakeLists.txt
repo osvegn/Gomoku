@@ -20,6 +20,7 @@ set(SRC
     ${SRC_ROOT}/board_protocol.c
     ${SRC_ROOT}/end_protocol.c
     ${SRC_ROOT}/info_protocol.c
+    ${SRC_ROOT}/about_protocol.c
     ${SRC_ROOT}/board.c
     ${SRC_ROOT}/protocols_management.c
     CACHE INTERNAL "sources"

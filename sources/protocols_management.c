@@ -17,7 +17,7 @@ const prots_t LIST_PROTOCOLS[] = {
     {"BOARD", &handle_board_protocol}, //done
     {"INFO", &handle_info_protocol}, // to do
     {"END", &handle_end_protocol}, // to do
-    {"ABOUT", &handle_info_protocol} // to do
+    {"ABOUT", &answer_about_protocol} // to do
 };
 
 static void pass_lines(char *message, size_t *offset)
