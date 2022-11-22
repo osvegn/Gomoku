@@ -41,6 +41,19 @@ static int get_value_from_message(const char *message, uint32_t *coord)
     return 0;
 }
 
+static void get_dumb_ia(coords_t *coordinates)
+{
+    const board_t *board = get_board();
+
+    for (int i = 0; i < board->size * board->size; i++) {
+        if (board->board[i] == 0) {
+            coordinates->x = i % board->size;
+            coordinates->y = i / board->size;
+            break;
+        }
+    }
+}
+
 int get_turn_protocol(const char *message)
 {
     const int protocol_len = 5;
@@ -50,15 +63,18 @@ int get_turn_protocol(const char *message)
     if (!message)
         return -1;
     offset += protocol_len;
-    if (get_value_from_message(message + offset, &coordinates.x) < 0)
+    if (get_value_from_message(message + offset, &(coordinates.x)) < 0)
         return -1;
     while (message[offset] && message[offset] != ',')
         offset++;
-    if (get_value_from_message(message + offset + 1, &coordinates.y))
+    if (get_value_from_message(message + offset + 1, &(coordinates.y)))
         return -1;
     if (add_piece_to_board(coordinates.x, coordinates.y, 2) == -1)
         return -1;
     // call the ia to put a piece
-    answer_turn_protocol(0, 0);
+    get_dumb_ia(&coordinates);
+    if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1)
+        return -1;
+    answer_turn_protocol(coordinates.x, coordinates.y);
     return 0;
 }
