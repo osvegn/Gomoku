@@ -96,7 +96,7 @@ jobs:
       - name: Build report
         run: gcovr --xml report.xml --exclude tests
       - name: Codecov
-        uses: codecov/codecov-action@v2.1.0
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_ACCESS_TOKEN }}
           fail_ci_if_error: false
