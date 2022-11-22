@@ -19,6 +19,7 @@ on:
 jobs:
   build_linux:
     runs-on: ubuntu-22.04
+    environment: Development
     steps:
       - uses: actions/checkout@v3
         with:
@@ -50,6 +51,7 @@ jobs:
 
   build_windows:
     runs-on: windows-latest
+    environment: Development
     steps:
       - uses: actions/checkout@v3
         with:
