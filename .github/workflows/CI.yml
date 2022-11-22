@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Windows
-          path: ${{ github.workspace }}/pbrain-gomoku-ai.exe
+          path: ${{ github.workspace }}/Release/pbrain-gomoku-ai.exe
       - name: Create release version
         if: github.event_name == 'workflow_dispatch'
         uses: softprops/action-gh-release@v1
