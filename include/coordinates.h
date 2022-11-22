@@ -20,4 +20,9 @@ typedef struct coordinates {
     /*@}*/
 } coords_t;
 
+typedef struct scoordinates {
+    int32_t x;
+    int32_t y;
+} scoords_t;
+
 #endif /* !COORDINATES_H_ */
