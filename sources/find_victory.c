@@ -8,7 +8,7 @@
 #include "board.h"
 #include "coordinates.h"
 
-scoords_t get_offset(int direction, unsigned int size)
+static scoords_t get_offset(int direction)
 {
     switch (direction) {
         case 1:
@@ -25,22 +25,23 @@ scoords_t get_offset(int direction, unsigned int size)
     return (scoords_t){0, 0};
 }
 
-int is_on_board(scoords_t coord, scoords_t offset, const board_t *board, int player)
+static int is_on_board(scoords_t coord, scoords_t offset, const board_t *board, unsigned int player)
 {
     scoords_t value = {coord.x + offset.x, coord.y + offset.y};
+    int size = (int)board->size;
 
-    if (value.x > 0 && value.x < board->size && value.y > 0 && value.y < board->size) {
-        if (board->board[value.y * board->size + value.x] == player) {
+    if (value.x > 0 && value.x < size && value.y > 0 && value.y < size) {
+        if (board->board[value.y * size + value.x] == player) {
             return 1;
         }
     }
     return 0;
 }
 
-int find_directions(const board_t *board, scoords_t i, int direction,
-int player)
+static int find_directions(const board_t *board, scoords_t i, int direction,
+unsigned int player)
 {
-    scoords_t offset = get_offset(direction, board->size);
+    scoords_t offset = get_offset(direction);
     unsigned int len = 1;
     scoords_t tmp = i;
 
@@ -67,7 +68,7 @@ int is_victory_available(void)
     const board_t *board = get_board();
     int rvalue = 0;
     scoords_t coords = {0, 0};
-    unsigned int size = board->size;
+    int size = (int)board->size;
 
     while (coords.y * board->size + coords.x < board->size * board->size) {
         if (board->board[coords.y * size + coords.x]) {
@@ -78,7 +79,7 @@ int is_victory_available(void)
             return rvalue;
         }
         coords.x++;
-        if (coords.x >= board->size && coords.y + 1 < board->size) {
+        if (coords.x >= size && coords.y + 1 < size) {
             coords.x = 0;
             coords.y++;
         }
