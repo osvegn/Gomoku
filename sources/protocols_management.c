@@ -7,6 +7,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "protocols.h"
 #include "gomoku.h"
 
@@ -67,7 +68,7 @@ static int search_protocol(char *message)
 
 int loop_in_protocols(void)
 {
-    char *buffer = NULL;
+    char buffer[128];
     size_t size = 0;
     int rvalue = 0;
     int end = 0;
@@ -75,9 +76,11 @@ int loop_in_protocols(void)
     if (rvalue == -1)
         return -1;
     while (!end) {
-        rvalue = readfile(&buffer, &size, stdin);
+        gets(buffer);
+        my_printf("%s\n", buffer);
+        // rvalue = readfile(&buffer, &size, stdin);
         end = search_protocol(buffer);
-        free(buffer);
+        // free(buffer);
     }
     return 0;
 }
