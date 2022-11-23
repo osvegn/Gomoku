@@ -75,12 +75,9 @@ int loop_in_protocols(void)
 
     if (rvalue == -1)
         return -1;
-    while (!end) {
+    while (true) { // to be defined
         gets(buffer);
-        // my_printf("%s\n", buffer);
-        // rvalue = readfile(&buffer, &size, stdin);
         end = search_protocol(buffer);
-        // free(buffer);
     }
     return 0;
 }
