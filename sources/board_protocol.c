@@ -90,13 +90,13 @@ static void get_dumb_ia(coords_t *coordinates)
     }
 }
 
-int handle_board_protocol(const char *message)
+int handle_board_protocol(const char *UNUSED(message))
 {
     char *buffer = NULL;
     size_t size = 0;
     int rvalue = 0;
     coords_t coordinates = {0, 0};
-    bool done = false;
+    int done = false;
 
     do {
         rvalue = readfile(&buffer, &size, stdin);

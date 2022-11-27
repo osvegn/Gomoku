@@ -8,7 +8,7 @@
 #include "gomoku.h"
 #include "board.h"
 
-int handle_end_protocol(const char *message)
+int handle_end_protocol(const char *UNUSED(message))
 {
     destroy_board();
     return 1;

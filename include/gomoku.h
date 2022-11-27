@@ -8,6 +8,13 @@
 #ifndef GOMOKU_H_
     #define GOMOKU_H_
 
+    #ifdef __GNUC__
+    #  define UNUSED(x) UNUSED_ ## x __attribute__((__unused__))
+    #else
+    #  define UNUSED(x) UNUSED_ ## x
+    #endif
+
+
     #include <stdio.h>
     #include <stdbool.h>
     #include "coordinates.h"

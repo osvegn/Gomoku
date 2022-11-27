@@ -7,7 +7,7 @@
 
 #include "gomoku.h"
 
-int answer_about_protocol(const char *message)
+int answer_about_protocol(const char *UNUSED(message))
 {
     const char *name = "NOUS";
     const char *author = "NOUS";

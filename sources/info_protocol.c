@@ -5,7 +5,9 @@
 ** info_protocol
 */
 
-int handle_info_protocol(const char *message)
+#include "gomoku.h"
+
+int handle_info_protocol(const char *UNUSED(message))
 {
     return 0;
 }

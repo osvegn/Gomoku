@@ -36,8 +36,9 @@ static int search_protocol(const char *message)
     int rvalue = 0;
     bool found = false;
 
-    for (size; message && message[size] != '\0' && message[size]
-        != ' ' && message[size] != '\n'; size++);
+    while (message && message[size] != '\0' && message[size] != ' '
+        && message[size] != '\n')
+        size++;
     if (size == 0)
         return 0;
     for (int i = 0; size > 0 && i < NB_PROTOCOLS; i++) {
