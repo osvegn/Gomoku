@@ -21,22 +21,6 @@ const prots_t LIST_PROTOCOLS[] = {
     {"ABOUT", &answer_about_protocol} // to do
 };
 
-static void pass_lines(char *message, size_t *offset)
-{
-    if (strncmp("BOARD", &(message[*offset]), 5) == 0) {
-        while (message[*offset] && strncmp(&(message[*offset]), "DONE", 4))
-            (*offset)++;
-        if (message[*offset])
-            *offset += 4;
-    }
-    else
-        while (message[*offset] &&
-            (message[*offset] != '\n' && message[*offset] != '\r'))
-            (*offset)++;
-    if (message[*offset] == '\n' || message[*offset] == '\r')
-        (*offset)++;
-}
-
 /**
  * @brief It search for the protocol to call in  the LIST_PROTOCOLS.
  *
@@ -46,38 +30,41 @@ static void pass_lines(char *message, size_t *offset)
  * @return the return value of the function if it finds it (0 or 1),
  * 0 otherwise.
  */
-static int search_protocol(char *message)
+static int search_protocol(const char *message)
 {
-    static size_t offset = 0;
     size_t size = 0;
     int rvalue = 0;
+    bool found = false;
 
-    for (size; message[offset + size] != '\0' && message[offset + size]
-        != ' ' && message[offset + size] != '\n'; size++);
+    for (size; message && message[size] != '\0' && message[size]
+        != ' ' && message[size] != '\n'; size++);
     if (size == 0)
-        return 2;
-    for (int i = 0; i < NB_PROTOCOLS; i++) {
-        if (strncmp(LIST_PROTOCOLS[i].key, &(message[offset]), size) == 0) {
-            rvalue = LIST_PROTOCOLS[i].function(&(message[offset]));
+        return 0;
+    for (int i = 0; size > 0 && i < NB_PROTOCOLS; i++) {
+        if (strncmp(LIST_PROTOCOLS[i].key, message, size) == 0) {
+            rvalue = LIST_PROTOCOLS[i].function(message);
+            found = true;
             break;
         }
     }
-    pass_lines(message, &offset);
+    if (!found)
+        print_unknown_message("Couldn't handle this protocol");
     return rvalue;
 }
 
 int loop_in_protocols(void)
 {
-    char buffer[128];
+    char *buffer = NULL;
     size_t size = 0;
     int rvalue = 0;
     int end = 0;
 
-    if (rvalue == -1)
-        return -1;
-    while (true) { // to be defined
-        gets(buffer);
+    do {
+        rvalue = readfile(&buffer, &size, stdin);
+        if (rvalue == -1)
+            return -1;
         end = search_protocol(buffer);
-    }
+    } while (!end && rvalue);
+    free(buffer);
     return 0;
 }

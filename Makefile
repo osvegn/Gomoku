@@ -24,6 +24,9 @@ fclean: clean
 	${RM} ${NAME}
 	${RM} ${NAME}_tests
 
+vclean: fclean
+	${RM} vgcore*
+
 re: fclean all
 
 debug: fclean

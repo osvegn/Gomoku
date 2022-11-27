@@ -33,37 +33,9 @@ void my_printf(const char *str, ...);
 int readfile(char **lineptr, size_t *n, FILE *stream);
 
 /**
- * @brief It takes a string and two unsigned integers as arguments, and if
- * the string starts with "TURN ", it will parse the string and store the
- * two numbers in the unsigned integers.
- *
- * @param message The message to parse.
- *
- * @return 0 on success, -1 otherwise.
+ * @brief It gets the lines given by the manager and call the function to
+ * handle each protocols.
  */
-int get_turn_protocol(const char *message);
-
-/**
- * @brief It takes a string, if the string is a valid start protocol message,
- * it creates the board with the given size returns 0.
- * Otherwise, it returns -1.
- *
- * @param message The message to parse.
- *
- * @return 0 on success, -1 otherwise.
- */
-int get_start_protocol(const char *message);
-
-int handle_begin_protocol(const char *message);
-
-int handle_board_protocol(const char *message);
-
 int loop_in_protocols(void);
-
-int handle_end_protocol(const char *message);
-
-int handle_info_protocol(const char *message);
-
-int answer_about_protocol(const char *message);
 
 #endif /* !GOMOKU_H_ */

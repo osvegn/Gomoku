@@ -9,6 +9,7 @@
 
 int main(void)
 {
-    loop_in_protocols();
+    if (loop_in_protocols() == -1)
+        return 84;
     return 0;
 }

@@ -22,6 +22,19 @@ static void answer_turn_protocol(unsigned int x, unsigned int y)
 }
 
 /**
+ * @brief Increments the offset to pass the comma character.
+ *
+ * @param message The message to parse.
+ * @param offset The offset to increment.
+ */
+static void move_offset(const char *message, size_t *offset)
+{
+    while (message[*offset] && message[*offset] != ',')
+        (*offset)++;
+    *offset++;
+}
+
+/**
  * @brief It takes a string and an unsigned int pointer, and it sets the
  * unsigned int to the value of the string.
  *
@@ -56,18 +69,15 @@ static void get_dumb_ia(coords_t *coordinates)
 
 int get_turn_protocol(const char *message)
 {
-    const int protocol_len = 5;
-    unsigned int offset = 0;
+    size_t offset = 5;
     coords_t coordinates = {0, 0};
 
     if (!message)
         return -1;
-    offset += protocol_len;
-    if (get_value_from_message(message + offset, &(coordinates.x)) < 0)
+    if (get_value_from_message(&(message[offset]), &(coordinates.x)) < 0)
         return -1;
-    while (message[offset] && message[offset] != ',')
-        offset++;
-    if (get_value_from_message(message + offset + 1, &(coordinates.y)))
+    move_offset(message, &offset);
+    if (get_value_from_message(&(message[offset]), &(coordinates.y)) < 0)
         return -1;
     if (add_piece_to_board(coordinates.x, coordinates.y, 2) == -1)
         return -1;
