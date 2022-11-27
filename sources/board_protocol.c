@@ -31,7 +31,7 @@ static void move_offset(const char *message, size_t *offset)
 {
     while (message[*offset] && message[*offset] != ',')
         (*offset)++;
-    *offset++;
+    (*offset)++;
 }
 
 /**
