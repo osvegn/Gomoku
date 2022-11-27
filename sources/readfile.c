@@ -23,7 +23,7 @@ static int allocate_memory(char **buffer, size_t *size)
     (*buffer) = realloc((*buffer), *size);
     if (!(*buffer))
         return -1;
-    for (int i = 0; i < *size; i++)
+    for (size_t i = 0; i < *size; i++)
         (*buffer)[i] = 0;
     return 0;
 }
@@ -35,7 +35,7 @@ int readfile(char **buffer, size_t *size, FILE *stream)
 
     if (!buffer || !stream || !size)
         return -1;
-    for (int j = 0; *buffer && j < *size; j++)
+    for (size_t j = 0; *buffer && j < *size; j++)
         (*buffer)[j] = 0;
     c = fgetc(stream);
     while (c != EOF && c != '\n') {
