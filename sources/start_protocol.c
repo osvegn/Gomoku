@@ -9,11 +9,19 @@
 #include <string.h>
 #include <stdlib.h>
 #include "gomoku.h"
+#include "board.h"
 
 static const char START_SUCCESS[] = "OK";
 static const char START_FAILURE[] = "ERROR";
 
-void answer_start_protocol(bool success, const char *message)
+/**
+ * @brief It prints a message to the standard output.
+ *
+ * @param success a boolean that indicates whether the protocol was
+ * successfully started or not.
+ * @param message The message to send to the client.
+ */
+static void answer_start_protocol(bool success, const char *message)
 {
     const char *code = NULL;
 
@@ -29,17 +37,20 @@ void answer_start_protocol(bool success, const char *message)
     }
 }
 
-int get_start_protocol(const char *message, unsigned int *size)
+int get_start_protocol(const char *message)
 {
-    const char protocol_name[] = "START ";
     const unsigned int protocol_len = 6;
     int value = 0;
 
-    if (!message || !size || strncmp(message, protocol_name, protocol_len))
-        return -1;
     value = atoi(message + protocol_len);
-    if (value <= 0)
+    if (value <= 0) {
+        answer_start_protocol(false, "invalid size given");
         return -1;
-    (*size) = value;
+    }
+    if (create_board(value) == -1) {
+        answer_start_protocol(false, "creation of the board failed");
+        return -1;
+    }
+    answer_start_protocol(true, NULL);
     return 0;
 }

@@ -5,18 +5,30 @@
 ** begin_protocol
 */
 
-#include <string.h>
+#include "board.h"
 #include "gomoku.h"
 
-int handle_begin_protocol(const char *message, const coords_t *coordinates,
-const uint32_t size)
+static void get_dumb_ia(coords_t *coordinates)
 {
-    const char expected[] = "BEGIN";
+    const board_t *board = get_board();
 
-    if (!message || strcmp(message, expected) != 0)
+    for (unsigned int i = 0; i < board->size * board->size; i++) {
+        if (board->board[i] == 0) {
+            coordinates->x = i % board->size;
+            coordinates->y = i / board->size;
+            break;
+        }
+    }
+}
+
+int handle_begin_protocol(const char *UNUSED(message))
+{
+    coords_t coordinates = {0, 0};
+
+    get_dumb_ia(&coordinates);
+    if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1)
         return -1;
-    if (coordinates->x > size || coordinates->y > size)
-        return -1;
-    my_printf("%u, %u\r\n", coordinates->x, coordinates->y);
+    // call the ia to know wich move to do
+    my_printf("%u,%u\r\n", coordinates.x, coordinates.y);
     return 0;
 }

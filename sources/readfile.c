@@ -23,30 +23,29 @@ static int allocate_memory(char **buffer, size_t *size)
     (*buffer) = realloc((*buffer), *size);
     if (!(*buffer))
         return -1;
+    for (size_t i = 0; i < *size; i++)
+        (*buffer)[i] = 0;
     return 0;
 }
 
-int readfile(char **lineptr, size_t *n, FILE *stream)
+int readfile(char **buffer, size_t *size, FILE *stream)
 {
-    char *buffer = NULL;
-    size_t size = 0;
     int c = 0;
     size_t i = 0;
 
-    if (!lineptr || !stream || !n)
+    if (!buffer || !stream || !size)
         return -1;
+    for (size_t j = 0; *buffer && j < *size; j++)
+        (*buffer)[j] = 0;
     c = fgetc(stream);
-    while (c != EOF) {
-        if ((size == 0 || size - 1 <= i) &&
-            allocate_memory(&buffer, &size) < 0) {
+    while (c != EOF && c != '\n') {
+        if ((*size == 0 || *size - 1 <= i) &&
+            allocate_memory(buffer, size) < 0) {
             return -1;
         }
-        buffer[i] = c;
+        (*buffer)[i] = c;
         i++;
-        buffer[i] = '\0';
         c = fgetc(stream);
     }
-    *n = size;
-    *lineptr = buffer;
     return i;
 }

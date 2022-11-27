@@ -1,15 +1,13 @@
 /*
 ** EPITECH PROJECT, 2022
-** gomoku
+** Gomoku
 ** File description:
-** main
+** info_protocol
 */
 
 #include "gomoku.h"
 
-int main(void)
+int handle_info_protocol(const char *UNUSED(message))
 {
-    if (loop_in_protocols() == -1)
-        return 84;
     return 0;
 }

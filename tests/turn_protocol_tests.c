@@ -9,11 +9,13 @@
 #include <criterion/redirect.h>
 #include "gomoku.h"
 
+/*
 static void redirect_all_stdout()
 {
     cr_redirect_stdout();
     cr_redirect_stderr();
 }
+
 
 /// answer_turn_protocol tests
 
@@ -133,3 +135,4 @@ Test(get_turn_protocol, invalide_negative_y_get_turn_protocol)
     cr_assert_eq(x, 5);
     cr_assert_eq(y, 0);
 }
+*/

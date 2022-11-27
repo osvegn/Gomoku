@@ -56,3 +56,5 @@ build
 pbrain-gomoku-ai
 pbrain-gomoku-ai_tests
 .vscode
+vgcore.*
+.vs
