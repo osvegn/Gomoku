@@ -81,7 +81,7 @@ static void get_dumb_ia(coords_t *coordinates)
 {
     const board_t *board = get_board();
 
-    for (int i = 0; i < board->size * board->size; i++) {
+    for (unsigned int i = 0; i < board->size * board->size; i++) {
         if (board->board[i] == 0) {
             coordinates->x = i % board->size;
             coordinates->y = i / board->size;
