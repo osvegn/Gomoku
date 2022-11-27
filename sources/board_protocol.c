@@ -90,7 +90,7 @@ static void get_dumb_ia(coords_t *coordinates)
     }
 }
 
-int handle_board_protocol(const char *)
+int handle_board_protocol(const char *message)
 {
     char *buffer = NULL;
     size_t size = 0;
