@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.17)
 
 project(pbrain-gomoku-ai C)
 
-add_compile_options(-g3)
-
 set(INC_ROOT ${PROJECT_SOURCE_DIR}/include)
 set(SRC_ROOT ${PROJECT_SOURCE_DIR}/sources)
 
