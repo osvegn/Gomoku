@@ -10,6 +10,8 @@
 #include "gomoku.h"
 #include "board.h"
 
+scoords_t get_offset(int direction);
+
 /**
  * @brief It prints the coordinates of the tile you want to play.
  *
@@ -54,6 +56,24 @@ static int get_value_from_message(const char *message, uint32_t *coord)
     return 0;
 }
 
+static void get_ia(scoords_t* coordinates)
+{
+    const board_t* board = get_board();
+    int rvalue = 0;
+    scoords_t offset = { 0, 0 };
+
+    rvalue = is_victory_available(coordinates);
+    offset = get_offset(rvalue);
+    if (is_on_board(coordinates, offset, board)) {
+        coordinates->x -= offset.x;
+        coordinates->y -= offset.y;
+    }
+    else {
+        coordinates->x += (4 * offset.x);
+        coordinates->y += (4 * offset.y);
+    }
+}
+
 static void get_dumb_ia(coords_t *coordinates)
 {
     const board_t *board = get_board();
@@ -71,6 +91,7 @@ int get_turn_protocol(const char *message)
 {
     size_t offset = 5;
     coords_t coordinates = {0, 0};
+    scoords_t coords = {0, 0};
 
     if (!message)
         return -1;
@@ -82,9 +103,16 @@ int get_turn_protocol(const char *message)
     if (add_piece_to_board(coordinates.x, coordinates.y, 2) == -1)
         return -1;
     // call the ia to put a piece
-    get_dumb_ia(&coordinates);
-    if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1)
+    coords.x = 0;
+    coords.y = 0;
+    get_ia(&coords);
+    if (coords.x > 0 && coords.y > 0)
+        coordinates = (coords_t){ (unsigned int)coords.x, (unsigned int)coords.y };
+    else
+        get_dumb_ia(&coordinates);
+    if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1) {
         return -1;
+    }
     answer_turn_protocol(coordinates.x, coordinates.y);
     return 0;
 }

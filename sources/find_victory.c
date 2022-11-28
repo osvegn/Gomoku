@@ -8,7 +8,7 @@
 #include "board.h"
 #include "coordinates.h"
 
-static scoords_t get_offset(int direction)
+scoords_t get_offset(int direction)
 {
     switch (direction) {
         case 1:
@@ -25,7 +25,7 @@ static scoords_t get_offset(int direction)
     return (scoords_t){0, 0};
 }
 
-static int is_on_board(scoords_t coord, scoords_t offset, const board_t *board, unsigned int player)
+int is_on_board(scoords_t coord, scoords_t offset, const board_t *board, unsigned int player)
 {
     scoords_t value = {coord.x + offset.x, coord.y + offset.y};
     int size = (int)board->size;
