@@ -8,19 +8,6 @@
 #include "board.h"
 #include "gomoku.h"
 
-static void get_dumb_ia(coords_t *coordinates)
-{
-    const board_t *board = get_board();
-
-    for (unsigned int i = 0; i < board->size * board->size; i++) {
-        if (board->board[i] == 0) {
-            coordinates->x = i % board->size;
-            coordinates->y = i / board->size;
-            break;
-        }
-    }
-}
-
 int handle_begin_protocol(const char *UNUSED(message))
 {
     coords_t coordinates = {0, 0};
