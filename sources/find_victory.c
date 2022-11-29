@@ -25,9 +25,9 @@ scoords_t get_offset(int direction)
     return (scoords_t){0, 0};
 }
 
-int is_on_board(scoords_t coord, scoords_t offset, const board_t *board, unsigned int player)
+int is_on_board(scoords_t *coord, scoords_t offset, const board_t *board, unsigned int player)
 {
-    scoords_t value = {coord.x + offset.x, coord.y + offset.y};
+    scoords_t value = {coord->x + offset.x, coord->y + offset.y};
     int size = (int)board->size;
 
     if (value.x > 0 && value.x < size && value.y > 0 && value.y < size) {
@@ -45,14 +45,14 @@ unsigned int player)
     unsigned int len = 1;
     scoords_t tmp = i;
 
-    while (is_on_board(i, offset, board, player)) {
+    while (is_on_board(&i, offset, board, player)) {
         i = (scoords_t){i.x + offset.x, i.y + offset.y};
         len++;
         if (len == 4) {
-            if (is_on_board(i, offset, board, 0)) {
+            if (is_on_board(&i, offset, board, 0)) {
                 return direction;
             }
-            if (is_on_board(i, (scoords_t){-(offset.x * 4), -(offset.y * 4)},
+            if (is_on_board(&i, (scoords_t){-(offset.x * 4), -(offset.y * 4)},
                 board, 0)) {
                 return direction;
             }

@@ -77,19 +77,6 @@ static int add_data(const char *message)
     return 0;
 }
 
-static void get_dumb_ia(coords_t *coordinates)
-{
-    const board_t *board = get_board();
-
-    for (unsigned int i = 0; i < board->size * board->size; i++) {
-        if (board->board[i] == 0) {
-            coordinates->x = i % board->size;
-            coordinates->y = i / board->size;
-            break;
-        }
-    }
-}
-
 int handle_board_protocol(const char *UNUSED(message))
 {
     char *buffer = NULL;
@@ -106,7 +93,7 @@ int handle_board_protocol(const char *UNUSED(message))
         if (done == -1)
             return -1;
     } while (!done && rvalue);
-    get_dumb_ia(&coordinates);
+    get_ia(&coordinates);
     if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1)
         return -1;
     // call the ia to put a piece

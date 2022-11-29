@@ -64,6 +64,6 @@ int is_victory_available(scoords_t *coords);
  * @param player the player who is playing
  * @return The function is_on_board() is returning an integer.
  */
-int is_on_board(scoords_t coord, scoords_t offset, const board_t *board, unsigned int player);
+int is_on_board(scoords_t *coord, scoords_t offset, const board_t *board, unsigned int player);
 
 #endif /* !GOMOKU_H_ */
