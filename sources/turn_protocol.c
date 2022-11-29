@@ -64,11 +64,10 @@ static void get_ia(scoords_t* coordinates)
 
     rvalue = is_victory_available(coordinates);
     offset = get_offset(rvalue);
-    if (is_on_board(coordinates, offset, board)) {
+    if (is_on_board(*coordinates, offset, board)) {
         coordinates->x -= offset.x;
         coordinates->y -= offset.y;
-    }
-    else {
+    } else {
         coordinates->x += (4 * offset.x);
         coordinates->y += (4 * offset.y);
     }
@@ -106,10 +105,11 @@ int get_turn_protocol(const char *message)
     coords.x = 0;
     coords.y = 0;
     get_ia(&coords);
-    if (coords.x > 0 && coords.y > 0)
+    if (coords.x > 0 && coords.y > 0) {
         coordinates = (coords_t){ (unsigned int)coords.x, (unsigned int)coords.y };
-    else
+    } else {
         get_dumb_ia(&coordinates);
+    }
     if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1) {
         return -1;
     }
