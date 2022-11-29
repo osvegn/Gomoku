@@ -77,7 +77,7 @@ void get_ia(scoords_t* s_coordinates)
 
     rvalue = is_victory_available(s_coordinates);
     offset = get_offset(rvalue);
-    if (is_on_board(s_coordinates, offset, board)) {
+    if (is_on_board(s_coordinates, offset, board, 1)) {
         s_coordinates->x -= offset.x;
         s_coordinates->y -= offset.y;
     } else {
