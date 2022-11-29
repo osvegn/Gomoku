@@ -8,6 +8,8 @@
 #include "coordinates.h"
 #include "board.h"
 #include "gomoku.h"
+#include <time.h>
+#include <stdlib.h>
 
 void get_dumb_ia(scoords_t *s_coordinates)
 {
