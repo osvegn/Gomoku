@@ -46,7 +46,24 @@ int readfile(char **lineptr, size_t *n, FILE *stream);
  */
 int loop_in_protocols(void);
 
+/**
+ * @brief It checks if there's a victory available for the player, and if there is, it
+ * returns the direction of the victory
+ * @param coords the coordinates of the last played piece
+ * @return The function is_victory_available returns the direction of the enemy
+ * if it is in a winning position.
+ */
 int is_victory_available(scoords_t *coords);
+
+/**
+ * @brief It checks if a given coordinate is on the board and if it is, it checks if the
+ * player has a piece there
+ * @param coord The coordinates of the piece we're checking.
+ * @param offset the offset to check
+ * @param board The board to check
+ * @param player the player who is playing
+ * @return The function is_on_board() is returning an integer.
+ */
 int is_on_board(scoords_t coord, scoords_t offset, const board_t *board, unsigned int player);
 
 #endif /* !GOMOKU_H_ */
