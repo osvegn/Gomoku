@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "board.h"
 
-static board_t board = {NULL, 0};
+static board_t board = {NULL, 0, 0};
 
 void destroy_board(void)
 {
@@ -26,6 +26,7 @@ int create_board(unsigned int size)
         board.board[i] = 0;
     }
     board.size = size;
+    board.turn = 0;
     return 0;
 }
 
@@ -36,6 +37,8 @@ int add_piece_to_board(unsigned int x, unsigned int y, unsigned int player)
     if (board.board[y * board.size + x])
         return -1;
     board.board[y * board.size + x] = player;
+    if (player == 1)
+        board.turn++;
     return 0;
 }
 

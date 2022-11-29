@@ -21,6 +21,11 @@ typedef struct board_s {
      * @brief The size of the board.
      */
     unsigned int size;
+
+    /**
+     * @brief Turn counter.
+     */
+    unsigned int turn;
 } board_t;
 
 /**
