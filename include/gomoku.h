@@ -18,6 +18,7 @@
     #include <stdio.h>
     #include <stdbool.h>
     #include "coordinates.h"
+    #include "board.h"
 
 /**
  * @brief It prints the string passed to it,
@@ -44,5 +45,8 @@ int readfile(char **lineptr, size_t *n, FILE *stream);
  * handle each protocols.
  */
 int loop_in_protocols(void);
+
+int is_victory_available(scoords_t *coords);
+int is_on_board(scoords_t coord, scoords_t offset, const board_t *board, unsigned int player);
 
 #endif /* !GOMOKU_H_ */

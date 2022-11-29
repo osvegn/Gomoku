@@ -42,6 +42,8 @@ int get_start_protocol(const char *message)
     const unsigned int protocol_len = 6;
     int value = 0;
 
+    if (!message)
+        return -1;
     value = atoi(message + protocol_len);
     if (value <= 0) {
         answer_start_protocol(false, "invalid size given");
