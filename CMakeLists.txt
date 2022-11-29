@@ -25,6 +25,7 @@ set(SRC
     ${SRC_ROOT}/find_victory.c
     ${SRC_ROOT}/load_board_from_file.c
     ${SRC_ROOT}/unknown_message.c
+    ${SRC_ROOT}/IA.c
     CACHE INTERNAL "sources"
 )
 

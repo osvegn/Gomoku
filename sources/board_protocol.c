@@ -82,7 +82,7 @@ int handle_board_protocol(const char *UNUSED(message))
     char *buffer = NULL;
     size_t size = 0;
     int rvalue = 0;
-    coords_t coordinates = {0, 0};
+    scoords_t coordinates = {0, 0};
     int done = false;
 
     do {
