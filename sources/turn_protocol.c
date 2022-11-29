@@ -59,14 +59,14 @@ static int get_value_from_message(const char *message, uint32_t *coord)
 void get_dumb_ia(scoords_t *s_coordinates)
 {
     const board_t *board = get_board();
+    int i = 0;
 
-    for (unsigned int i = 0; i < board->size * board->size; i++) {
-        if (board->board[i] == 0) {
-            s_coordinates->x = i % board->size;
-            s_coordinates->y = i / board->size;
-            break;
-        }
-    }
+    srand(time(NULL));
+    do  {
+        i = rand() % (board->size * board->size - 1);
+    } while ((board->board[i] != 0));
+    s_coordinates->x = i % board->size;
+    s_coordinates->y = i / board->size;
 }
 
 void get_ia(scoords_t* s_coordinates)
@@ -76,13 +76,17 @@ void get_ia(scoords_t* s_coordinates)
     scoords_t offset = { 0, 0 };
 
     rvalue = is_victory_available(s_coordinates);
+    if (rvalue == 0) {
+        get_dumb_ia(s_coordinates);
+        return;
+    }
     offset = get_offset(rvalue);
-    if (is_on_board(s_coordinates, offset, board, 1)) {
-        s_coordinates->x -= offset.x;
-        s_coordinates->y -= offset.y;
-    } else {
+    if (is_on_board(s_coordinates, (scoords_t){offset.x * 4, offset.y * 4}, board, 0)) {
         s_coordinates->x += (4 * offset.x);
         s_coordinates->y += (4 * offset.y);
+    } else {
+        s_coordinates->x -= offset.x;
+        s_coordinates->y -= offset.y;
     }
     if (s_coordinates->x <= 0 || s_coordinates->y <= 0)
         get_dumb_ia(s_coordinates);
