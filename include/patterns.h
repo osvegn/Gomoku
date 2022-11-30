@@ -102,10 +102,6 @@ const pattern_t PATTERNS[] =
         2
     },
     {
-        ".XX.X",
-        3
-    },
-    {
         "..XXX",
         1
     }
