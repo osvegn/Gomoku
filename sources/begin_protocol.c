@@ -10,7 +10,7 @@
 
 int handle_begin_protocol(const char *UNUSED(message))
 {
-    coords_t coordinates = {0, 0};
+    scoords_t coordinates = {0, 0};
 
     get_dumb_ia(&coordinates);
     if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1)
