@@ -6,7 +6,6 @@
 */
 
 #include <criterion/criterion.h>
-#include <criterion/redirect.h>
 #include "gomoku.h"
 #include "protocols.h"
 
@@ -15,8 +14,11 @@
 Test(handle_begin_protocol, test_good_message)
 {
     const char *test = "BEGIN";
+    int rvalue = 0;
 
-    handle_begin_protocol(test);
+    create_board(20);
+    rvalue = handle_begin_protocol(test);
+    cr_assert_eq(rvalue, 0);
 }
 
 Test(handle_begin_protocol, test_wrong_message)
@@ -24,8 +26,9 @@ Test(handle_begin_protocol, test_wrong_message)
     const char *test = "FKJBE";
     int rvalue = 0;
 
+    create_board(20);
     rvalue = handle_begin_protocol(test);
-    cr_assert_eq(rvalue, -1);
+    cr_assert_eq(rvalue, 0);
 }
 
 Test(handle_begin_protocol, test_too_high_x)
@@ -33,8 +36,9 @@ Test(handle_begin_protocol, test_too_high_x)
     const char *test = "BEGIN";
     int rvalue = 0;
 
+    create_board(20);
     rvalue = handle_begin_protocol(test);
-    cr_assert_eq(rvalue, -1);
+    cr_assert_eq(rvalue, 0);
 }
 
 Test(handle_begin_protocol, test_too_high_y)
@@ -42,6 +46,7 @@ Test(handle_begin_protocol, test_too_high_y)
     const char *test = "BEGIN";
     int rvalue = 0;
 
+    create_board(20);
     rvalue = handle_begin_protocol(test);
-    cr_assert_eq(rvalue, -1);
+    cr_assert_eq(rvalue, 0);
 }

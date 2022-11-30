@@ -10,8 +10,6 @@
 #include "gomoku.h"
 #include "board.h"
 
-scoords_t get_offset(int direction);
-
 /**
  * @brief It prints the coordinates of the tile you want to play.
  *
@@ -54,42 +52,6 @@ static int get_value_from_message(const char *message, uint32_t *coord)
         return -1;
     (*coord) = value;
     return 0;
-}
-
-void get_dumb_ia(scoords_t *s_coordinates)
-{
-    const board_t *board = get_board();
-    int i = 0;
-
-    srand(time(NULL));
-    do  {
-        i = rand() % (board->size * board->size - 1);
-    } while ((board->board[i] != 0));
-    s_coordinates->x = i % board->size;
-    s_coordinates->y = i / board->size;
-}
-
-void get_ia(scoords_t* s_coordinates)
-{
-    const board_t* board = get_board();
-    int rvalue = 0;
-    scoords_t offset = { 0, 0 };
-
-    rvalue = is_victory_available(s_coordinates);
-    if (rvalue == 0) {
-        get_dumb_ia(s_coordinates);
-        return;
-    }
-    offset = get_offset(rvalue);
-    if (is_on_board(s_coordinates, (scoords_t){offset.x * 4, offset.y * 4}, board, 0)) {
-        s_coordinates->x += (4 * offset.x);
-        s_coordinates->y += (4 * offset.y);
-    } else {
-        s_coordinates->x -= offset.x;
-        s_coordinates->y -= offset.y;
-    }
-    if (s_coordinates->x <= 0 || s_coordinates->y <= 0)
-        get_dumb_ia(s_coordinates);
 }
 
 int get_turn_protocol(const char *message)
