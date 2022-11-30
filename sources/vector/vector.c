@@ -177,7 +177,7 @@ static int emplace_back(vector_t *this, void *data)
         this->total_size++;
         this->available_size++;
     }
-    memcpy((char *)this->pointer + this->size * this->element_size), data, this->element_size;
+    memcpy((char *)this->pointer + this->size * this->element_size, data, this->element_size);
     this->available_size--;
     this->size++;
     return 0;
