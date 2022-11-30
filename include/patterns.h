@@ -9,7 +9,14 @@
 #define PATTERNS_H_
 
 typedef struct pattern_s {
+    /**
+     * @brief The pattern representation.
+    */
     char *pattern;
+
+    /**
+     * @brief The position to play.
+    */
     unsigned int position;
 } pattern_t;
 
