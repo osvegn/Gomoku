@@ -19,14 +19,14 @@ static void *at(vector_t *this, unsigned int index)
 
 static void *front(vector_t *this)
 {
-    if (this->size)
+    if (!this->size)
         return NULL;
     return this->pointer;
 }
 
 static void *back(vector_t *this)
 {
-    if (this->size)
+    if (!this->size)
         return NULL;
     return (char *)this->pointer + (this->size - 1) * this->element_size;
 }
