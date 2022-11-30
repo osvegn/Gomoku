@@ -70,11 +70,39 @@ const pattern_t PATTERNS[] =
     },
     /// may two turn before end
     {
+        "XXX..",
+        3
+    },
+    {
+        "XX.X.",
+        2
+    },
+    {
+        "XX..X",
+        2
+    },
+    {
+        "X.XX.",
+        1
+    },
+    {
+        "X..XX",
+        1
+    },
+    {
         ".XXX.",
         0
     },
     {
-        "XXX..",
+        ".XX.X",
+        3
+    },
+    {
+        ".X.XX",
+        2
+    },
+    {
+        ".XX.X",
         3
     },
     {
