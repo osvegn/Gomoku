@@ -14,7 +14,7 @@ static void *at(vector_t *this, unsigned int index)
 {
     if (index >= this->size)
         return NULL;
-    return (void *)((unsigned int)this->pointer + index * this->element_size);
+    return (char *)this->pointer + index * this->element_size;
 }
 
 static void *front(vector_t *this)
@@ -28,7 +28,7 @@ static void *back(vector_t *this)
 {
     if (this->size)
         return NULL;
-    return (void *)((unsigned int)this->pointer + (this->size - 1) * this->element_size);
+    return (char *)this->pointer + (this->size - 1) * this->element_size;
 }
 
 static bool empty(vector_t *this)
@@ -49,8 +49,8 @@ static unsigned int capacity(vector_t *this)
 static int swap(vector_t *this, unsigned int i_first_element, unsigned int i_second_element)
 {
     void *tmp = malloc(this->element_size);
-    void *first_element = (void *)((unsigned int)this->pointer + i_first_element * this->element_size);
-    void *second_element = (void *)((unsigned int)this->pointer + i_second_element * this->element_size);
+    void *first_element = (char *)this->pointer + i_first_element * this->element_size;
+    void *second_element = (char *)this->pointer + i_second_element * this->element_size;
 
     if (!tmp)
         return -1;
@@ -80,7 +80,7 @@ static int erase(vector_t *this, unsigned int index)
 {
     if (index > this->size)
         return -1;
-    memcpy((void *)((unsigned int)this->pointer + index * this->element_size), (void *)((unsigned int)this->pointer + (index + 1) * this->element_size), (this->size - (index + 1)) * this->element_size);
+    memcpy((char *)this->pointer + index * this->element_size, (char *)this->pointer + (index + 1) * this->element_size, (this->size - (index + 1)) * this->element_size);
     this->size--;
     this->available_size++;
     return 0;
@@ -108,7 +108,7 @@ static int print_at(vector_t *this, unsigned int index, int (*print_fct)(void *d
 {
     if (index > this->size)
         return -1;
-    return print_fct((void *)((unsigned int)this->pointer + index * this->element_size));
+    return print_fct((char *)this->pointer + index * this->element_size);
 }
 
 /// @brief The print function prints all elements of the vector.
@@ -122,7 +122,7 @@ static int print(vector_t *this, int (*print_fct)(void *data))
     printf("[");
     fflush(stdout);
     for (unsigned int i = 0; i < this->size; i++) {
-        if (print_fct((void *)((unsigned int)this->pointer + i * this->element_size)) < 0)
+        if (print_fct((char *)this->pointer + i * this->element_size) < 0)
             return -1;
         if (i + 1 < this->size) {
             printf(", ");
@@ -153,9 +153,9 @@ static int emplace(vector_t *this, void *data, unsigned int index)
         this->total_size++;
         this->available_size++;
     }
-    ptr = (void *)((unsigned int)this->pointer + index * this->element_size);
+    ptr = (char *)this->pointer + index * this->element_size;
     for (unsigned int i = this->size; i > index; i--) {
-        memcpy((void *)((unsigned int)this->pointer + i * this->element_size), (void *)((unsigned int)this->pointer + (i - 1) * this->element_size), this->element_size);
+        memcpy((char *)this->pointer + i * this->element_size, (char *)this->pointer + (i - 1) * this->element_size, this->element_size);
     }
     memcpy(ptr, data, this->element_size);
     this->available_size--;
@@ -177,7 +177,7 @@ static int emplace_back(vector_t *this, void *data)
         this->total_size++;
         this->available_size++;
     }
-    memcpy((void *)((unsigned int)this->pointer + this->size * this->element_size), data, this->element_size);
+    memcpy((char *)this->pointer + this->size * this->element_size), data, this->element_size;
     this->available_size--;
     this->size++;
     return 0;
