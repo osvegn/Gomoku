@@ -60,3 +60,56 @@ Test(vector_capacity, capacity)
     vector.destructor(&vector);
     cr_assert_eq(1, 1);
 }
+
+Test(vector_at, vector_at)
+{
+    vector_t vector;
+
+    vector_constructor(&vector, sizeof(int), 10);
+    for (int i = 0; i < 10; i++) {
+        vector.emplace_back(&vector, &(i * 10));
+    }
+    cr_assert_eq((int) *(int *)vector.at(&vector, 3), 30);
+    vector.destructor(&vector);
+    cr_assert_eq(1, 1);
+}
+
+Test(vector_front, vector_front)
+{
+    vector_t vector;
+
+    vector_constructor(&vector, sizeof(int), 10);
+    for (int i = 0; i < 10; i++) {
+        vector.emplace_back(&vector, &(i * 10));
+    }
+    cr_assert_eq((int) *(int *)vector.front(&vector), 0);
+    vector.destructor(&vector);
+    cr_assert_eq(1, 1);
+}
+
+Test(vector_back, vector_back)
+{
+    vector_t vector;
+
+    vector_constructor(&vector, sizeof(int), 10);
+    for (int i = 0; i < 10; i++) {
+        vector.emplace_back(&vector, &(i * 10));
+    }
+    cr_assert_eq((int) *(int *)vector.back(&vector), 90);
+    vector.destructor(&vector);
+    cr_assert_eq(1, 1);
+}
+
+Test(vector_erase, vector_erase)
+{
+    vector_t vector;
+
+    vector_constructor(&vector, sizeof(int), 10);
+    for (int i = 0; i < 10; i++) {
+        vector.emplace_back(&vector, &(i * 10));
+    }
+    vector.erase(&vector, 5);
+    cr_assert_eq((int) *(int *)vector.at(&vector, 5), 60);
+    vector.destructor(&vector);
+    cr_assert_eq(1, 1);
+}
