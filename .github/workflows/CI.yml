@@ -98,7 +98,6 @@ jobs:
       - name: coverage annotation
         run: |
           gcovr -e tests --coveralls coverage.json
-        #   >> $GITHUB_STEP_SUMMARY
           gcovr -e tests --branch --coveralls coverage.json
       - name: Codecov
         uses: codecov/codecov-action@v3
