@@ -104,6 +104,10 @@ const pattern_t PATTERNS[] =
     {
         "..XXX",
         1
+    },
+    {
+        0,
+        0
     }
 };
 
