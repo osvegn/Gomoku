@@ -26,6 +26,7 @@ set(SRC
     ${SRC_ROOT}/load_board_from_file.c
     ${SRC_ROOT}/unknown_message.c
     ${SRC_ROOT}/IA.c
+    ${SRC_ROOT}/vector/vector.c
     CACHE INTERNAL "sources"
 )
 
