@@ -88,32 +88,38 @@ typedef struct pattern_info_s {
     unsigned int direction;
 } pattern_info_t;
 
-void find_pattern(const board_t *board, unsigned int i, vector_t *vector)
+void find_pattern_on_direction(unsigned int direction, unsigned int i, unsigned int j, vector_t *vector)
 {
+    const board_t *board = get_board();
+    scoords_t offset = get_offset(direction);
     pattern_info_t info;
 
+    for (unsigned int a = 1; a <= 2; a++) {
+        for (unsigned int k = 0; PATTERNS[j].pattern[k]; k++) {
+            unsigned int tmp = i + (offset.y * board->size + offset.x) * k;
+            if (tmp < 0 || tmp >= board->size * board->size)
+                break;
+            if (PATTERNS[j].pattern[k] == '.' && board->board[tmp] != 0)
+                break;
+            if (PATTERNS[j].pattern[k] == 'X' && board->board[tmp] != a)
+                break;
+            if (!PATTERNS[j].pattern[k + 1]) {
+                info.direction = direction;
+                info.id = j;
+                info.position = i;
+                info.representation = PATTERNS[j].pattern;
+                vector->emplace_back(vector, &info);
+                return;
+            }
+        }
+    }
+}
+
+void find_pattern(unsigned int i, vector_t *vector)
+{
     for (unsigned int j = 0; PATTERNS[j].pattern; j++) {
         for (unsigned int direction = 1; direction < 5; direction++) {
-            scoords_t offset = get_offset(direction);
-            for (unsigned int a = 1; a <= 2; a++) {
-                for (unsigned int k = 0; PATTERNS[j].pattern[k]; k++) {
-                    unsigned int tmp = i + (offset.y * board->size + offset.x) * k;
-                    if (tmp < 0 || tmp >= board->size * board->size)
-                        break;
-                    if (PATTERNS[j].pattern[k] == '.' && board->board[tmp] != 0)
-                        break;
-                    if (PATTERNS[j].pattern[k] == 'X' && board->board[tmp] != a)
-                        break;
-                    if (!PATTERNS[j].pattern[k + 1]) {
-                        info.direction = direction;
-                        info.id = j;
-                        info.position = i;
-                        info.representation = PATTERNS[j].pattern;
-                        vector->emplace_back(vector, &info);
-                        return;
-                    }
-                }
-            }
+            find_pattern_on_direction(direction, i, j, vector);
         }
     }
 }
@@ -124,7 +130,7 @@ vector_t fill_vector(const board_t *board)
 
     vector_constructor(&vector, sizeof(pattern_info_t), 100);
     for (unsigned int i = 0; i < board->size * board->size; i++) {
-        find_pattern(board, i, &vector);
+        find_pattern(i, &vector);
     }
     return vector;
 }
@@ -143,16 +149,12 @@ void sort_by_id(vector_t *vector)
     pattern_info_t *elem2 = NULL;
 
     for (unsigned int i = 0; i < vector->get_size(vector) - 1; i++) {
-        //vector->print(vector, &print_pattern);
         elem1 = (pattern_info_t *)vector->at(vector, i);
         elem2 = (pattern_info_t *)vector->at(vector, i + 1);
-        //my_printf("(%i > %i) ?", elem1->id, elem2->id);
         if (elem1->id > elem2->id) {
-            //my_printf(" true | ");
             vector->swap(vector, i, i + 1);
             i = -1;
         }
-        //my_printf("\n");
     }
 }
 
@@ -161,13 +163,12 @@ void get_ia(scoords_t *s_coordinates)
     const board_t *board = get_board();
     vector_t vector = fill_vector(board);
     pattern_info_t *info = NULL;
+    scoords_t offset;
 
-    //print_board();
     if (vector.size) {
         sort_by_id(&vector);
-        //vector.print(&vector, &print_pattern);
         info = vector.at(&vector, 0);
-        scoords_t offset = get_offset(info->direction);
+        offset = get_offset(info->direction);
         s_coordinates->x = (info->position + (offset.y * board->size + offset.x) * PATTERNS[info->id].position) % board->size;
         s_coordinates->y = (info->position + (offset.y * board->size + offset.x) * PATTERNS[info->id].position) / board->size;
     } else {
