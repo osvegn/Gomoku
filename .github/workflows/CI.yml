@@ -95,6 +95,10 @@ jobs:
         run: make run_tests
       - name: Build report
         run: gcovr --xml report.xml --exclude tests
+      - name: coverage annotation
+        run: |
+          gcovr -e tests --coveralls coverage.json
+          gcovr -e tests --branch --coveralls coverage.json
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:

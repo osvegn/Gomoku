@@ -79,12 +79,3 @@ Test(get_start_protocol, test_get_start_protocol_without_size_pointer, .init = r
     cr_assert_eq(rvalue, 0);
     cr_assert_stdout_eq_str("OK\n");
 }
-
-Test(get_start_protocol, test_get_start_protocol_with_high_value, .init = redirect_all_stdout)
-{
-    char message[] = "START 123456789";
-    int rvalue = get_start_protocol(message);
-
-    cr_assert_eq(rvalue, 0);
-    cr_assert_stdout_eq_str("OK\n");
-}

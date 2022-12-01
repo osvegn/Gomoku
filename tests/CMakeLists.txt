@@ -8,6 +8,7 @@ set(SRC_TESTS
     ${SRC_TESTS_ROOT}/turn_protocol_tests.c
     ${SRC_TESTS_ROOT}/readfile_tests.c
     ${SRC_TESTS_ROOT}/board_tests.c
+    ${SRC_TESTS_ROOT}/vector_tests.c
 )
 
 add_executable(${PROJECT_NAME}_tests ${SRC} ${SRC_TESTS})
