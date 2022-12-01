@@ -8,6 +8,8 @@
 #include "coordinates.h"
 #include "board.h"
 #include "gomoku.h"
+#include "vector.h"
+#include "patterns.h"
 #include <time.h>
 #include <stdlib.h>
 
@@ -77,16 +79,6 @@ void get_ia2(scoords_t* s_coordinates)
     if (s_coordinates->x <= 0 || s_coordinates->y <= 0)
         get_dumb_ia(s_coordinates);
 }
-
-#include "vector.h"
-#include "patterns.h"
-
-typedef struct pattern_info_s {
-    unsigned int id;
-    char *representation;
-    unsigned int position;
-    unsigned int direction;
-} pattern_info_t;
 
 void find_pattern_on_direction(unsigned int direction, unsigned int i, unsigned int j, vector_t *vector)
 {
