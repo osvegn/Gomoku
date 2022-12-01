@@ -55,7 +55,7 @@ void get_dumb_ia(scoords_t *s_coordinates)
     s_coordinates->y = i / board->size;
 }
 
-void get_ia(scoords_t* s_coordinates)
+void get_ia2(scoords_t* s_coordinates)
 {
     const board_t* board = get_board();
     int rvalue = 0;
