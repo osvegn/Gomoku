@@ -20,6 +20,13 @@ typedef struct pattern_s {
     unsigned int position;
 } pattern_t;
 
+typedef struct pattern_info_s {
+    unsigned int id;
+    char *representation;
+    unsigned int position;
+    unsigned int direction;
+} pattern_info_t;
+
 const pattern_t PATTERNS[] =
 {
     /// one turn before end
