@@ -39,6 +39,8 @@ int add_piece_to_board(unsigned int x, unsigned int y, unsigned int player)
     board.board[y * board.size + x] = player;
     if (player == 1)
         board.turn++;
+    else
+        board.opposant_turn++;
     return 0;
 }
 

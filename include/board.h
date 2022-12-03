@@ -26,6 +26,11 @@ typedef struct board_s {
      * @brief Turn counter.
      */
     unsigned int turn;
+
+    /**
+     * @brief Opposant turn counter.
+     */
+    unsigned int opposant_turn;
 } board_t;
 
 /**

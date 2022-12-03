@@ -14,25 +14,37 @@
 #include "vector.h"
 #include "patterns.h"
 
+static unsigned int get_random_place(unsigned int player, const board_t *board,
+unsigned int turn)
+{
+    unsigned int i = 0;
+    unsigned int count = 0;
+
+    srand(time(NULL));
+    i = (rand() % turn) + 1;
+    for (unsigned int j = 0; j < board->size * board->size; j++) {
+        if (board->board[j] == player)
+            count++;
+        if (count >= i) {
+            i = j;
+            break;
+        }
+    }
+    return i;
+}
+
 void get_dumb_ia(scoords_t *s_coordinates)
 {
     const board_t *board = get_board();
-    int i = 0;
+    unsigned int i = 0;
     int count = 0;
     scoords_t offset = {0, 0};
 
-    if (board->turn) {
-        srand(time(NULL));
-        i = (rand() % board->turn) + 1;
-        for (unsigned int j = 0; j < board->size * board->size; j++) {
-            if (board->board[j] == 1)
-                count++;
-            if (count >= i) {
-                i = j;
-                break;
-            }
-        }
-        count = 0;
+    if (board->turn || board->opposant_turn) {
+        if (board->turn)
+            i = get_random_place(1, board, board->turn);
+        else
+            i = get_random_place(2, board, board->opposant_turn);
         s_coordinates->x = i % board->size;
         s_coordinates->y = i / board->size;
         do {
@@ -58,28 +70,28 @@ void get_dumb_ia(scoords_t *s_coordinates)
     s_coordinates->y = i / board->size;
 }
 
-void get_ia2(scoords_t* s_coordinates)
-{
-    const board_t* board = get_board();
-    int rvalue = 0;
-    scoords_t offset = { 0, 0 };
-
-    rvalue = is_victory_available(s_coordinates);
-    if (rvalue == 0) {
-        get_dumb_ia(s_coordinates);
-        return;
-    }
-    offset = get_offset(rvalue);
-    if (is_on_board(s_coordinates, (scoords_t){offset.x * 4, offset.y * 4}, board, 0)) {
-        s_coordinates->x += (4 * offset.x);
-        s_coordinates->y += (4 * offset.y);
-    } else {
-        s_coordinates->x -= offset.x;
-        s_coordinates->y -= offset.y;
-    }
-    if (s_coordinates->x <= 0 || s_coordinates->y <= 0)
-        get_dumb_ia(s_coordinates);
-}
+//void get_ia2(scoords_t* s_coordinates)
+//{
+//    const board_t* board = get_board();
+//    int rvalue = 0;
+//    scoords_t offset = {0, 0};
+//
+//    //rvalue = is_victory_available(s_coordinates);
+//    //if (rvalue == 0) {
+//    //    get_dumb_ia(s_coordinates);
+//    //    return;
+//    //}
+//    //offset = get_offset(rvalue);
+//    //if (is_on_board(s_coordinates, (scoords_t){offset.x * 4, offset.y * 4}, board, 0)) {
+//    //    s_coordinates->x += (4 * offset.x);
+//    //    s_coordinates->y += (4 * offset.y);
+//    //} else {
+//    //    s_coordinates->x -= offset.x;
+//    //    s_coordinates->y -= offset.y;
+//    //}
+//    //if (s_coordinates->x <= 0 || s_coordinates->y <= 0)
+//    //    get_dumb_ia(s_coordinates);
+//}
 
 void find_pattern_on_direction(unsigned int direction, unsigned int i, unsigned int j, vector_t *vector)
 {
@@ -112,6 +124,8 @@ void find_pattern_on_direction(unsigned int direction, unsigned int i, unsigned 
 void find_pattern(unsigned int i, vector_t *vector)
 {
     for (unsigned int j = 0; PATTERNS[j].pattern; j++) {
+        if (PATTERNS[j].threat_score == 2 && !vector->empty(vector))
+            return;
         for (unsigned int direction = 1; direction < 5; direction++) {
             find_pattern_on_direction(direction, i, j, vector);
         }
@@ -182,7 +196,7 @@ void get_ia(scoords_t *s_coordinates)
         s_coordinates->x = (info->position + (offset.y * board->size + offset.x) * PATTERNS[info->id].position) % board->size;
         s_coordinates->y = (info->position + (offset.y * board->size + offset.x) * PATTERNS[info->id].position) / board->size;
     } else {
-        get_ia2(s_coordinates);
+        get_dumb_ia(s_coordinates);
     }
     vector.destructor(&vector);
 }
