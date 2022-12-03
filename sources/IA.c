@@ -5,13 +5,14 @@
 ** IA
 */
 
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
 #include "coordinates.h"
 #include "board.h"
 #include "gomoku.h"
 #include "vector.h"
 #include "patterns.h"
-#include <time.h>
-#include <stdlib.h>
 
 void get_dumb_ia(scoords_t *s_coordinates)
 {
@@ -89,7 +90,7 @@ void find_pattern_on_direction(unsigned int direction, unsigned int i, unsigned 
     for (unsigned int a = 1; a <= 2; a++) {
         for (unsigned int k = 0; PATTERNS[j].pattern[k]; k++) {
             unsigned int tmp = i + (offset.y * board->size + offset.x) * k;
-            if (tmp < 0 || tmp >= board->size * board->size)
+            if (tmp >= board->size * board->size)
                 break;
             if (PATTERNS[j].pattern[k] == '.' && board->board[tmp] != 0)
                 break;
@@ -100,6 +101,7 @@ void find_pattern_on_direction(unsigned int direction, unsigned int i, unsigned 
                 info.id = j;
                 info.position = i;
                 info.representation = PATTERNS[j].pattern;
+                info.player = a;
                 vector->emplace_back(vector, &info);
                 return;
             }
@@ -131,7 +133,7 @@ int print_pattern(void *data)
 {
     pattern_info_t *pattern = (pattern_info_t *)data;
 
-    my_printf("[%i, %i, %i, \"%s\"]", pattern->id, pattern->direction, pattern->position, pattern->representation);
+    my_printf("[id: %i, direct: %i, pos: %i, player: %u, \"%s\"]", pattern->id, pattern->direction, pattern->position, pattern->player, pattern->representation);
     return 0;
 }
 
@@ -143,9 +145,25 @@ void sort_by_id(vector_t *vector)
     for (unsigned int i = 0; i < vector->get_size(vector) - 1; i++) {
         elem1 = (pattern_info_t *)vector->at(vector, i);
         elem2 = (pattern_info_t *)vector->at(vector, i + 1);
-        if (elem1->id > elem2->id) {
+        if (elem1->player < elem2->player || (elem1->player == elem2->player
+            && elem1->id > elem2->id)) {
             vector->swap(vector, i, i + 1);
             i = -1;
+        }
+    }
+    for (unsigned int i = 0; i < vector->get_size(vector) - 1; i++) {
+        elem1 = (pattern_info_t *)vector->at(vector, i);
+        if (elem1->player == 2)
+            continue;
+        if (i == 0)
+            break;
+        if (elem1->id <= 5) {
+            elem1 = malloc(sizeof(pattern_info_t));
+            memcpy(elem1, (pattern_info_t *)vector->at(vector, i),
+                vector->element_size);
+            vector->erase(vector, i);
+            vector->emplace(vector, elem1, 0);
+            break;
         }
     }
 }

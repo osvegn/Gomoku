@@ -6,7 +6,7 @@
 */
 
 #ifndef PATTERNS_H_
-#define PATTERNS_H_
+    #define PATTERNS_H_
 
 typedef struct pattern_s {
     /**
@@ -25,6 +25,7 @@ typedef struct pattern_info_s {
     char *representation;
     unsigned int position;
     unsigned int direction;
+    unsigned int player;
 } pattern_info_t;
 
 const pattern_t PATTERNS[] =

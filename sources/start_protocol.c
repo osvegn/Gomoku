@@ -47,11 +47,11 @@ int get_start_protocol(const char *message)
     value = atoi(message + protocol_len);
     if (value <= 0) {
         answer_start_protocol(false, "invalid size given");
-        return -1;
+        return 0;
     }
     if (create_board(value) == -1) {
         answer_start_protocol(false, "creation of the board failed");
-        return -1;
+        return 0;
     }
     answer_start_protocol(true, NULL);
     return 0;
