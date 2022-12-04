@@ -33,18 +33,18 @@ unsigned int turn)
     return i;
 }
 
-void get_dumb_ia(scoords_t *s_coordinates)
+void get_dumb_ia(scoords_t *s_coordinates, bool first_turn)
 {
     const board_t *board = get_board();
     unsigned int i = 0;
     int count = 0;
     scoords_t offset = {0, 0};
 
-    if (board->turn || board->opponent_turn) {
+    if (!first_turn) {
         if (board->turn)
             i = get_random_place(1, board, board->turn);
         else
-            i = get_random_place(2, board, board->opponent_turn);
+            i = get_random_place(2, board, 1);
         s_coordinates->x = i % board->size;
         s_coordinates->y = i / board->size;
         do {
@@ -69,31 +69,6 @@ void get_dumb_ia(scoords_t *s_coordinates)
     s_coordinates->x = i % board->size;
     s_coordinates->y = i / board->size;
 }
-
-/*
-void get_ia2(scoords_t* s_coordinates, vector_t *vector)
-{
-    const board_t* board = get_board();
-    int rvalue = 0;
-    scoords_t offset = {0, 0};
-
-    rvalue = is_victory_available(s_coordinates);
-    if (rvalue == 0) {
-        get_dumb_ia(s_coordinates);
-        return;
-    }
-    offset = get_offset(rvalue);
-    if (is_on_board(s_coordinates, (scoords_t){offset.x * 4, offset.y * 4}, board, 0)) {
-        s_coordinates->x += (4 * offset.x);
-        s_coordinates->y += (4 * offset.y);
-    } else {
-        s_coordinates->x -= offset.x;
-        s_coordinates->y -= offset.y;
-    }
-    if (s_coordinates->x <= 0 || s_coordinates->y <= 0)
-        get_dumb_ia(s_coordinates);
-}
-*/
 
 void find_pattern_on_direction(unsigned int direction, unsigned int i, unsigned int j, vector_t *vector)
 {
@@ -197,7 +172,7 @@ void get_ia(scoords_t *s_coordinates)
         s_coordinates->x = (info->position + (offset.y * board->size + offset.x) * PATTERNS[info->id].position) % board->size;
         s_coordinates->y = (info->position + (offset.y * board->size + offset.x) * PATTERNS[info->id].position) / board->size;
     } else {
-        get_dumb_ia(s_coordinates);
+        get_dumb_ia(s_coordinates, false);
     }
     vector.destructor(&vector);
 }
