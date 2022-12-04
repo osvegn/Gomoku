@@ -63,7 +63,8 @@ Test(get_turn_protocol, valide_big_numbers_get_turn_protocol)
     const char message[] = "TURN 567891,6864121";
     int rvalue = get_turn_protocol(message);
 
-    cr_assert_eq(rvalue, -1);
+    cr_assert_eq(rvalue, 0);
+    cr_assert_stdout_eq_str("ERROR - invalid position given\n");
 }
 
 Test(get_turn_protocol, invalide_negative_x_get_turn_protocol)
@@ -72,7 +73,8 @@ Test(get_turn_protocol, invalide_negative_x_get_turn_protocol)
     const char message[] = "TURN -5,6";
     int rvalue = get_turn_protocol(message);
 
-    cr_assert_eq(rvalue, -1);
+    cr_assert_eq(rvalue, 0);
+    cr_assert_stdout_eq_str("ERROR - invalid position given\n");
 }
 
 Test(get_turn_protocol, invalide_negative_y_get_turn_protocol)
@@ -81,5 +83,6 @@ Test(get_turn_protocol, invalide_negative_y_get_turn_protocol)
     const char message[] = "TURN 5,-6";
     int rvalue = get_turn_protocol(message);
 
-    cr_assert_eq(rvalue, -1);
+    cr_assert_eq(rvalue, 0);
+    cr_assert_stdout_eq_str("ERROR - invalid position given\n");
 }
