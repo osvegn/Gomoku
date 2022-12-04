@@ -48,7 +48,7 @@ static int get_value_from_message(const char *message, uint32_t *coord)
 {
     int value = 0;
 
-    if (*message == 0)
+    if (*message < '0' || *message > '9')
         return -1;
     value = atoi(message);
     if (value < 0)
@@ -71,6 +71,11 @@ int get_turn_protocol(const char *message)
     }
     move_offset(message, &offset);
     if (get_value_from_message(&(message[offset]), &(u_coordinates.y)) < 0) {
+        answer_start_protocol(false, "invalid position given");
+        return 0;
+    }
+    if (u_coordinates.x >= get_board()->size ||
+        u_coordinates.y >= get_board()->size) {
         answer_start_protocol(false, "invalid position given");
         return 0;
     }
