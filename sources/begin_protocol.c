@@ -12,7 +12,7 @@ int handle_begin_protocol(const char *UNUSED(message))
 {
     scoords_t coordinates = {0, 0};
 
-    get_dumb_ia(&coordinates);
+    get_dumb_ia(&coordinates, true);
     if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1)
         return -1;
     // call the ia to know wich move to do

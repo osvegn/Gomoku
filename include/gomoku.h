@@ -67,7 +67,7 @@ int is_victory_available(scoords_t *coords);
 int is_on_board(scoords_t *coord, scoords_t offset, const board_t *board, unsigned int player);
 
 scoords_t get_offset(int direction);
-void get_dumb_ia(scoords_t *s_coordinates);
+void get_dumb_ia(scoords_t *s_coordinates, bool first_turn);
 void get_ia(scoords_t* s_coordinates);
 
 #endif /* !GOMOKU_H_ */

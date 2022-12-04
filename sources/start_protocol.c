@@ -14,14 +14,7 @@
 static const char START_SUCCESS[] = "OK";
 static const char START_FAILURE[] = "ERROR";
 
-/**
- * @brief It prints a message to the standard output.
- *
- * @param success a boolean that indicates whether the protocol was
- * successfully started or not.
- * @param message The message to send to the client.
- */
-static void answer_start_protocol(bool success, const char *message)
+void answer_start_protocol(bool success, const char *message)
 {
     const char *code = NULL;
 
@@ -47,11 +40,11 @@ int get_start_protocol(const char *message)
     value = atoi(message + protocol_len);
     if (value <= 0) {
         answer_start_protocol(false, "invalid size given");
-        return -1;
+        return 0;
     }
     if (create_board(value) == -1) {
         answer_start_protocol(false, "creation of the board failed");
-        return -1;
+        return 0;
     }
     answer_start_protocol(true, NULL);
     return 0;

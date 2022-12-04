@@ -11,6 +11,8 @@
 
     #define NB_PROTOCOLS 7
 
+    #include <stdbool.h>
+
 /**
  * A structure to represent the name of the protocols and its linked function
  */
@@ -97,6 +99,15 @@ int answer_about_protocol(const char *message);
  * @param message The message to parse.
  */
 void print_unknown_message(const char *message);
+
+/**
+ * @brief It prints a message to the standard output.
+ *
+ * @param success a boolean that indicates whether the protocol was
+ * successfully started or not.
+ * @param message The message to send to the client.
+ */
+void answer_start_protocol(bool success, const char *message);
 
 #endif /* !PROTOCOLS_H_ */
 
