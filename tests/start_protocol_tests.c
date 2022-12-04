@@ -59,7 +59,7 @@ Test(get_start_protocol, test_negative_start_value, .init = redirect_all_stdout)
     char message[] = "START -2";
     int rvalue = get_start_protocol(message);
 
-    cr_assert_eq(rvalue, -1);
+    cr_assert_eq(rvalue, 0);
     cr_assert_stdout_eq_str("ERROR - invalid size given\n");
 }
 
