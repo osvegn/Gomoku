@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "gomoku.h"
+#include "protocols.h"
 #include "board.h"
 
 /**
@@ -90,8 +91,11 @@ int handle_board_protocol(const char *UNUSED(message))
         if (rvalue == -1)
             return -1;
         done = add_data(buffer);
-        if (done == -1)
-            return -1;
+        if (done == -1) {
+            answer_start_protocol(false, "invalid position given");
+            free(buffer);
+            return 0;
+        }
     } while (!done && rvalue);
     get_ia(&coordinates);
     if (add_piece_to_board(coordinates.x, coordinates.y, 1) == -1)

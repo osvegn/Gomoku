@@ -14,14 +14,7 @@
 static const char START_SUCCESS[] = "OK";
 static const char START_FAILURE[] = "ERROR";
 
-/**
- * @brief It prints a message to the standard output.
- *
- * @param success a boolean that indicates whether the protocol was
- * successfully started or not.
- * @param message The message to send to the client.
- */
-static void answer_start_protocol(bool success, const char *message)
+void answer_start_protocol(bool success, const char *message)
 {
     const char *code = NULL;
 

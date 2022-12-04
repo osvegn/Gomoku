@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "gomoku.h"
+#include "protocols.h"
 #include "board.h"
 
 /**
@@ -47,6 +48,8 @@ static int get_value_from_message(const char *message, uint32_t *coord)
 {
     int value = 0;
 
+    if (*message == 0)
+        return -1;
     value = atoi(message);
     if (value < 0)
         return -1;
@@ -62,11 +65,15 @@ int get_turn_protocol(const char *message)
 
     if (!message)
         return -1;
-    if (get_value_from_message(&(message[offset]), &(u_coordinates.x)) < 0)
-        return -1;
+    if (get_value_from_message(&(message[offset]), &(u_coordinates.x)) < 0) {
+        answer_start_protocol(false, "invalid position given");
+        return 0;
+    }
     move_offset(message, &offset);
-    if (get_value_from_message(&(message[offset]), &(u_coordinates.y)) < 0)
-        return -1;
+    if (get_value_from_message(&(message[offset]), &(u_coordinates.y)) < 0) {
+        answer_start_protocol(false, "invalid position given");
+        return 0;
+    }
     if (add_piece_to_board(u_coordinates.x, u_coordinates.y, 2) == -1)
         return -1;
     // call the ia to put a piece
